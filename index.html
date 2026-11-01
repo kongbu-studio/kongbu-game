@@ -22,7 +22,6 @@
       line-height: 1.6;
       padding-top: 60px;
     }
-    
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -36,181 +35,71 @@
       z-index: 1000;
       backdrop-filter: blur(5px);
     }
-    .nav-left {
-      display: flex;
-      align-items: center;
-    }
-    .logo-text {
-      font-size: 20px;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
+    .nav-left { display: flex; align-items: center; }
+    .logo-text { font-size: 20px; font-weight: bold; letter-spacing: 2px; }
     .logo-mark {
-      width: 32px;
-      height: 32px;
-      margin-left: 8px;
+      width: 32px; height: 32px; margin-left: 8px;
       background: linear-gradient(135deg, var(--red), #2a0000);
-      border: 1px solid #ff4444;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: bold;
-      color: #fff;
+      border: 1px solid #ff4444; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: bold; color: #fff;
       box-shadow: 0 0 8px rgba(139,0,0,0.5);
     }
     .menu-btn {
-      width: 40px;
-      height: 40px;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
+      width: 40px; height: 40px; background: none; border: none;
+      color: #fff; font-size: 24px; cursor: pointer;
     }
-    
     .menu-panel {
-      position: fixed;
-      top: 60px;
-      right: -200px;
-      width: 180px;
-      height: auto;
-      background: #111;
+      position: fixed; top: 60px; right: -200px;
+      width: 180px; background: #111;
       border-left: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      transition: right 0.3s ease;
-      z-index: 999;
+      transition: right 0.3s ease; z-index: 999;
     }
-    .menu-panel.open {
-      right: 0;
-    }
+    .menu-panel.open { right: 0; }
     .menu-item {
-      display: block;
-      padding: 15px 20px;
-      color: var(--text);
-      text-decoration: none;
-      border-bottom: 1px solid #222;
-      font-size: 16px;
+      display: block; padding: 15px 20px; color: var(--text);
+      text-decoration: none; border-bottom: 1px solid #222; font-size: 16px;
     }
-    .menu-item:active, .menu-item.active {
-      background: var(--red);
-      color: #fff;
-    }
-
-    .section {
-      padding: 50px 20px;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    h2 {
-      color: #fff;
-      font-size: 22px;
-      margin-bottom: 20px;
-      border-left: 4px solid var(--red);
-      padding-left: 10px;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-    }
-    .hero h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-      letter-spacing: 4px;
-    }
-    .hero p {
-      color: var(--sub);
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 15px;
-    }
+    .menu-item:active, .menu-item.active { background: var(--red); color: #fff; }
+    .section { padding: 50px 20px; border-bottom: 1px solid #1a1a1a; }
+    h2 { color: #fff; font-size: 22px; margin-bottom: 20px; border-left: 4px solid var(--red); padding-left: 10px; }
+    .container { max-width: 800px; margin: 0 auto; }
+    .hero { text-align: center; padding: 80px 20px; }
+    .hero h1 { font-size: 36px; margin-bottom: 10px; letter-spacing: 4px; }
+    .hero p { color: var(--sub); }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
+      background: var(--card); border: 1px solid var(--border);
+      padding: 20px; border-radius: 8px; text-align: center;
     }
-    .card span {
-      font-size: 28px;
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .shots {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
+    .card span { font-size: 28px; display: block; margin-bottom: 10px; }
+    .shots { display: grid; grid-template-columns: 1fr; gap: 20px; }
     .shot-block {
-      height: 220px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #aaa;
-      font-size: 18px;
-      letter-spacing: 2px;
-      border: 1px solid #333;
-      text-align: center;
-      padding: 20px;
+      height: 220px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #aaa; font-size: 18px; letter-spacing: 2px;
+      border: 1px solid #333; text-align: center; padding: 20px;
     }
     .shot-1 { background: #1a0505; color: #cc5555; }
     .shot-2 { background: #050510; color: #557799; }
     .shot-3 { background: #100505; color: #aa4444; }
     .shot-4 { background: #051005; color: #55aa55; }
-
     .dl-box {
-      background: var(--card);
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      border: 1px solid var(--border);
+      background: var(--card); padding: 30px; border-radius: 10px;
+      text-align: center; border: 1px solid var(--border);
     }
     .btn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      background: var(--red);
-      color: #fff;
-      font-size: 17px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
+      display: block; width: 100%; padding: 15px; margin: 10px 0;
+      border-radius: 8px; background: var(--red); color: #fff;
+      font-size: 17px; font-weight: bold; border: none; cursor: pointer;
     }
-    .btn:active {
-      background: var(--red-hover);
-    }
-    .update-tip {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #ff8888;
-      display: none;
-    }
-
-    footer {
-      padding: 40px 20px;
-      text-align: center;
-      color: var(--sub);
-      font-size: 14px;
-      background: #050505;
-    }
-    footer .bilibili {
-      color: #ff6699;
-      font-weight: bold;
-      margin-bottom: 10px;
-      display: block;
-    }
+    .btn:active { background: var(--red-hover); }
+    .update-tip { margin-top: 15px; font-size: 14px; color: #ff8888; display: none; }
+    .dl-note { color: var(--sub); font-size: 12px; margin-top: 8px; }
+    .dl-note a { color: #ff8888; }
+    footer { padding: 40px 20px; text-align: center; color: var(--sub); font-size: 14px; background: #050505; }
+    footer .bilibili { color: #ff6699; font-weight: bold; margin-bottom: 10px; display: block; }
   </style>
 </head>
 <body>
@@ -277,7 +166,10 @@
         <div class="update-tip" id="updateTip"></div>
         <button class="btn" id="dl-android">📱 下载安卓版 (APK)</button>
         <button class="btn" id="dl-windows">💻 下载电脑版 (Windows)</button>
-        <p style="color:var(--sub); font-size:13px; margin-top:10px;">安卓约 113MB · Windows 约 350MB</p>
+        <p class="dl-note">主通道：镜像加速 · 镜像异常自动回退官方原链</p>
+        <p class="dl-note">
+          下载慢？<a href="https://github.com/kongbu-studio/kongbu-game/releases" target="_blank" rel="noopener">前往 GitHub 原链手动下载</a>
+        </p>
       </div>
     </div>
   </section>
@@ -296,27 +188,63 @@
     }
     menuBtn.addEventListener('click', toggleMenu);
 
-    // 正式下载直链（GitHub Release 永久链接）
-    const DIRECT_LINKS = {
+    /* ============ 下载源配置 ============ */
+    const RAW = {
       android: "https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk",
       windows: "https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip"
     };
 
-    function startDownload(url, name) {
+    // 镜像顺序：你测过能用的放前面，后面补常见稳定镜像
+    const MIRROR_PREFIX = [
+      "https://ghproxy.net/",
+      "https://mirror.ghproxy.com/",
+      "https://ghfast.top/",
+      "https://gh.llkk.cc/"
+    ];
+
+    function buildMirrorList(raw) {
+      return MIRROR_PREFIX.map(p => p.replace(/\/$/,'') + "/" + raw).concat([raw]);
+    }
+
+    // 简单前端探测：依次尝试，哪个能先返回就下哪个
+    function smartDownload(kind, idx = 0) {
+      const raw = RAW[kind];
+      const list = buildMirrorList(raw);
+      if (idx >= list.length) {
+        // 全部镜像失败，保底用原链
+        forceDownload(raw);
+        return;
+      }
+      const url = list[idx];
+      const probe = new XMLHttpRequest();
+      probe.open('GET', url, true);
+      probe.timeout = 4000;
+      probe.setRequestHeader('Range', 'bytes=0-1');
+      probe.onload = function () {
+        if (probe.status === 200 || probe.status === 206 || probe.status === 302) {
+          forceDownload(url);
+        } else {
+          smartDownload(kind, idx + 1);
+        }
+      };
+      probe.onerror = function () { smartDownload(kind, idx + 1); };
+      probe.ontimeout = function () { smartDownload(kind, idx + 1); };
+      try { probe.send(); } catch (e) { smartDownload(kind, idx + 1); }
+    }
+
+    function forceDownload(url) {
       const a = document.createElement("a");
       a.href = url;
-      a.download = name;
       a.target = "_blank";
+      a.rel = "noopener";
+      a.download = "";
       document.body.appendChild(a);
       a.click();
       a.remove();
     }
-    document.getElementById("dl-android").addEventListener("click", () => {
-      startDownload(DIRECT_LINKS.android, "kongbu_hospital_1.0.6.apk");
-    });
-    document.getElementById("dl-windows").addEventListener("click", () => {
-      startDownload(DIRECT_LINKS.windows, "kongbu-game.zip");
-    });
+
+    document.getElementById("dl-android").addEventListener("click", () => smartDownload("android"));
+    document.getElementById("dl-windows").addEventListener("click", () => smartDownload("windows"));
 
     // 检查更新
     fetch('version.json')
