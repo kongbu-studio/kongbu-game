@@ -62,6 +62,17 @@
   .dl-android { background:#dc2626; color:#fff; }
   .dl-windows { background:#2563eb; color:#fff; }
   .dl-ios { background:#2a2a30; color:#777; cursor:not-allowed; }
+  .update-box { margin-top:10px; display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .check-btn {
+    padding:11px 24px; border-radius:12px; font-size:14px; font-weight:700;
+    background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.18);
+    cursor:pointer;
+  }
+  .update-msg { font-size:13px; color:#9a9aa0; min-height:18px; }
+  .author {
+    margin-top:18px; font-size:12px; color:#666; text-align:center; line-height:1.8;
+  }
+  .author b { color:#aaa; }
 </style>
 </head>
 <body>
@@ -96,6 +107,16 @@
       <button class="dl-btn dl-android" id="download-android">📱 Android</button>
       <button class="dl-btn dl-windows" id="download-windows">💻 Windows</button>
       <button class="dl-btn dl-ios" id="download-ios">🍎 iOS（暂未发布）</button>
+    </div>
+
+    <div class="update-box">
+      <button class="check-btn" id="check-update">检查更新</button>
+      <div class="update-msg" id="update-msg"></div>
+    </div>
+
+    <div class="author">
+      B站作者 / UP主：<b>奶油不吃糖果</b><br>
+      请勿模仿，二创禁止
     </div>
   </div>
 
@@ -137,19 +158,43 @@ document.querySelectorAll(".lang-switch button").forEach(btn => {
   btn.addEventListener("click", () => applyLang(btn.getAttribute("data-lang")));
 });
 
-document.getElementById("download-android").addEventListener("click", function (e) {
+document.getElementById("download-android").addEventListener("click", e => {
   e.preventDefault();
   window.open(DIRECT_LINKS.android, "_blank", "noopener");
 });
-
-document.getElementById("download-windows").addEventListener("click", function (e) {
+document.getElementById("download-windows").addEventListener("click", e => {
   e.preventDefault();
   window.open(DIRECT_LINKS.windows, "_blank", "noopener");
 });
-
-document.getElementById("download-ios").addEventListener("click", function (e) {
+document.getElementById("download-ios").addEventListener("click", e => {
   e.preventDefault();
   alert(currentLang === "zh" ? "iOS 版本暂未发布" : "iOS version not yet released");
+});
+
+/* 检查更新：只查安卓 */
+document.getElementById("check-update").addEventListener("click", () => {
+  const msg = document.getElementById("update-msg");
+  msg.textContent = "正在检查更新...";
+
+  fetch("version.json?t=" + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      // 本地安卓版本号（网站写死当前版，APP 以后从自己包里读）
+      const localVersion = "1.0.0";
+      const localCode = 1;
+
+      if (data.android_version_code > localCode) {
+        msg.textContent = "发现新版本 v" + data.android_version + "：" + data.changelog;
+        setTimeout(() => {
+          window.open(data.apk_url, "_blank", "noopener");
+        }, 800);
+      } else {
+        msg.textContent = "当前已是最新版本 v" + localVersion;
+      }
+    })
+    .catch(() => {
+      msg.textContent = "检查更新失败，请稍后再试";
+    });
 });
 </script>
 </body>
