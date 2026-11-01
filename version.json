@@ -1,7 +1,7 @@
 {
-  "android_version": "1.0.0",
-  "android_version_code": 1,
-  "apk_url": "https://c.wss.ink/f/l952uv2zuat",
-  "changelog": "首次发布版本",
+  "android_version": "1.0.6",
+  "android_version_code": 106,
+  "apk_url": "https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk",
+  "changelog": "正式发布安卓与Windows版",
   "force_update": false
 }
