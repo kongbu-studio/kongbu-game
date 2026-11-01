@@ -1,201 +1,347 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>恐怖医院 - 官方网站</title>
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html,body { height:100%; overflow-x:hidden; }
-  body {
-    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-    background:#0a0a0f; color:#e8e8ea;
-    display:flex; flex-direction:column; min-height:100vh;
-  }
-  .topbar {
-    display:flex; justify-content:space-between; align-items:center;
-    padding:16px 20px; position:sticky; top:0; z-index:50;
-    background:rgba(10,10,15,.82); backdrop-filter:blur(10px);
-  }
-  .badge {
-    font-size:12px; padding:5px 12px; border-radius:20px;
-    background:rgba(220,38,38,.15); color:#ff5b5b;
-    border:1px solid rgba(220,38,38,.35);
-  }
-  .brand { font-size:20px; font-weight:800; letter-spacing:1px; }
-  .lang-switch { display:flex; gap:6px; }
-  .lang-switch button {
-    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
-    color:#ccc; font-size:13px; padding:5px 10px; border-radius:8px; cursor:pointer;
-  }
-  .lang-switch button.active { background:#dc2626; color:#fff; border-color:#dc2626; }
-  .hero {
-    flex:1; display:flex; flex-direction:column; justify-content:center;
-    align-items:center; text-align:center; padding:40px 22px;
-  }
-  .icon {
-    width:96px; height:96px; border-radius:22px; margin-bottom:26px;
-    background:linear-gradient(135deg,#7c1d1d,#dc2626);
-    display:flex; align-items:center; justify-content:center;
-    font-size:46px; box-shadow:0 10px 40px rgba(220,38,38,.25);
-  }
-  h1 { font-size:34px; font-weight:900; margin-bottom:10px; }
-  .sub { font-size:15px; color:#9a9aa0; margin-bottom:28px; line-height:1.7; }
-  .tags { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:36px; }
-  .tag {
-    font-size:13px; padding:7px 16px; border-radius:20px;
-    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
-  }
-  .intro { max-width:460px; font-size:14px; line-height:1.9; color:#b8b8be; }
-  .intro h3 { color:#fff; margin-bottom:14px; font-size:16px; }
-  .footer {
-    padding:26px 20px 40px; border-top:1px solid rgba(255,255,255,.06);
-    display:flex; flex-direction:column; align-items:center; gap:14px;
-  }
-  .footer-title { font-size:14px; color:#888; margin-bottom:4px; }
-  .btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
-  .dl-btn {
-    padding:13px 26px; border-radius:14px; font-size:15px; font-weight:700;
-    cursor:pointer; border:none; min-width:150px;
-    display:flex; align-items:center; justify-content:center; gap:8px;
-  }
-  .dl-android { background:#dc2626; color:#fff; }
-  .dl-windows { background:#2563eb; color:#fff; }
-  .dl-ios { background:#2a2a30; color:#777; cursor:not-allowed; }
-  .update-box { margin-top:10px; display:flex; flex-direction:column; align-items:center; gap:10px; }
-  .check-btn {
-    padding:11px 24px; border-radius:12px; font-size:14px; font-weight:700;
-    background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.18);
-    cursor:pointer;
-  }
-  .update-msg { font-size:13px; color:#9a9aa0; min-height:18px; }
-  .author {
-    margin-top:18px; font-size:12px; color:#666; text-align:center; line-height:1.8;
-  }
-  .author b { color:#aaa; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>恐怖医院 - 官方网站</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card: #1a1a1a;
+      --red: #8b0000;
+      --red-hover: #a50000;
+      --text: #e0e0e0;
+      --sub: #888;
+      --border: #333;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-top: 60px;
+    }
+    
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 60px;
+      background: rgba(10,10,10,0.95);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+    }
+    .logo-text {
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      margin-left: 8px;
+      background: linear-gradient(135deg, var(--red), #2a0000);
+      border: 1px solid #ff4444;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 0 8px rgba(139,0,0,0.5);
+    }
+    .menu-btn {
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .menu-panel {
+      position: fixed;
+      top: 60px;
+      right: -200px;
+      width: 180px;
+      height: auto;
+      background: #111;
+      border-left: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: right 0.3s ease;
+      z-index: 999;
+    }
+    .menu-panel.open {
+      right: 0;
+    }
+    .menu-item {
+      display: block;
+      padding: 15px 20px;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid #222;
+      font-size: 16px;
+    }
+    .menu-item:active, .menu-item.active {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .section {
+      padding: 50px 20px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    h2 {
+      color: #fff;
+      font-size: 22px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--red);
+      padding-left: 10px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      letter-spacing: 4px;
+    }
+    .hero p {
+      color: var(--sub);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .card span {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .shots {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .shot-block {
+      height: 220px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: 18px;
+      letter-spacing: 2px;
+      border: 1px solid #333;
+      text-align: center;
+      padding: 20px;
+    }
+    .shot-1 { background: #1a0505; color: #cc5555; }
+    .shot-2 { background: #050510; color: #557799; }
+    .shot-3 { background: #100505; color: #aa4444; }
+    .shot-4 { background: #051005; color: #55aa55; }
+
+    .dl-box {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      background: var(--red);
+      color: #fff;
+      font-size: 17px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:active {
+      background: var(--red-hover);
+    }
+    .update-tip {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ff8888;
+      display: none;
+    }
+
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--sub);
+      font-size: 14px;
+      background: #050505;
+    }
+    footer .bilibili {
+      color: #ff6699;
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-  <div class="topbar">
-    <span class="badge" data-i18n="official">官方网站</span>
-    <span class="brand">恐怖医院</span>
-    <div class="lang-switch">
-      <button data-lang="zh" class="active">中</button>
-      <button data-lang="en">EN</button>
+
+  <nav class="nav">
+    <div class="nav-left">
+      <span class="logo-text">恐怖医院</span>
+      <div class="logo-mark">医</div>
     </div>
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </nav>
+
+  <div class="menu-panel" id="menuPanel">
+    <a href="#home" class="menu-item" onclick="toggleMenu()">主页</a>
+    <a href="#intro" class="menu-item" onclick="toggleMenu()">介绍</a>
+    <a href="#shots" class="menu-item" onclick="toggleMenu()">截图</a>
+    <a href="#download" class="menu-item" onclick="toggleMenu()">下载</a>
   </div>
 
-  <div class="hero">
-    <div class="icon">🏥</div>
-    <h1 data-i18n="title">恐怖医院</h1>
-    <p class="sub" data-i18n="subtitle">在废弃医院中生存，揭开隐藏的真相</p>
-    <div class="tags">
-      <span class="tag" data-i18n="tag1">恐怖生存</span>
-      <span class="tag" data-i18n="tag2">单人剧情</span>
-      <span class="tag" data-i18n="tag3">离线可玩</span>
-      <span class="tag" data-i18n="tag4">免费下载</span>
+  <section class="section hero" id="home">
+    <div class="container">
+      <h1>恐怖医院</h1>
+      <p>v1.0.6 · 探索未知的深夜病房</p>
     </div>
-    <div class="intro">
-      <h3 data-i18n="introTitle">关于游戏</h3>
-      <p data-i18n="introText">你在一所废弃的精神病院中醒来，黑暗中潜伏着未知的危险。探索、解谜、生存，揭开这家医院背后的黑暗实验。支持 Android 与 Windows 平台。</p>
+  </section>
+
+  <section class="section" id="intro">
+    <div class="container">
+      <h2>游戏介绍</h2>
+      <p>《恐怖医院》是一款独立制作的悬疑惊悚游戏。玩家将深入一座被废弃的诡异医院，寻找真相，面对内心的恐惧。剧情包含多结局分支，你的每一次选择都至关重要。</p>
     </div>
-  </div>
+  </section>
 
-  <div class="footer">
-    <div class="footer-title" data-i18n="downloadTitle">选择平台下载</div>
-    <div class="btns">
-      <button class="dl-btn dl-android" id="download-android">📱 Android</button>
-      <button class="dl-btn dl-windows" id="download-windows">💻 Windows</button>
-      <button class="dl-btn dl-ios" id="download-ios">🍎 iOS（暂未发布）</button>
+  <section class="section" id="play">
+    <div class="container">
+      <h2>游戏玩法</h2>
+      <div class="cards">
+        <div class="card"><span>🔍</span>探索</div>
+        <div class="card"><span>🧩</span>解谜</div>
+        <div class="card"><span>🏃</span>生存</div>
+        <div class="card"><span>⚖️</span>抉择</div>
+        <div class="card"><span>📜</span>收集</div>
+        <div class="card"><span>🎭</span>沉浸</div>
+      </div>
     </div>
+  </section>
 
-    <div class="update-box">
-      <button class="check-btn" id="check-update">检查更新</button>
-      <div class="update-msg" id="update-msg"></div>
+  <section class="section" id="shots">
+    <div class="container">
+      <h2>游戏截图</h2>
+      <div class="shots">
+        <div class="shot-block shot-1">标题画面占位<br>(暗红调)</div>
+        <div class="shot-block shot-2">医院长廊占位<br>(幽蓝调)</div>
+        <div class="shot-block shot-3">「我不是最后一个」<br>(剧情文本占位)</div>
+        <div class="shot-block shot-4">TRUE END 2<br>(深绿调)</div>
+      </div>
     </div>
+  </section>
 
-    <div class="author">
-      B站作者 / UP主：<b>奶油不吃糖果</b><br>
-      请勿模仿，二创禁止
+  <section class="section" id="download">
+    <div class="container">
+      <h2>下载游戏</h2>
+      <div class="dl-box">
+        <div class="update-tip" id="updateTip"></div>
+        <button class="btn" id="dl-android">📱 下载安卓版 (APK)</button>
+        <button class="btn" id="dl-windows">💻 下载电脑版 (Windows)</button>
+        <p style="color:var(--sub); font-size:13px; margin-top:10px;">安卓约 113MB · Windows 约 350MB</p>
+      </div>
     </div>
-  </div>
+  </section>
 
-<script>
-const I18N = {
-  zh: {
-    official:"官方网站", title:"恐怖医院", subtitle:"在废弃医院中生存，揭开隐藏的真相",
-    tag1:"恐怖生存", tag2:"单人剧情", tag3:"离线可玩", tag4:"免费下载",
-    introTitle:"关于游戏", introText:"你在一所废弃的精神病院中醒来，黑暗中潜伏着未知的危险。探索、解谜、生存，揭开这家医院背后的黑暗实验。支持 Android 与 Windows 平台。",
-    downloadTitle:"选择平台下载"
-  },
-  en: {
-    official:"Official", title:"Horror Hospital", subtitle:"Survive the abandoned hospital. Uncover the truth.",
-    tag1:"Survival Horror", tag2:"Single Player", tag3:"Offline", tag4:"Free",
-    introTitle:"About", introText:"You wake up in an abandoned asylum. Danger lurks in the dark. Explore, solve puzzles, survive, and reveal the dark experiments behind this hospital. Available on Android & Windows.",
-    downloadTitle:"Download"
-  }
-};
+  <footer>
+    <span class="bilibili">B站账号：奶油不吃糖果 个人版权，禁止抄袭、转载与二创</span>
+    <div>官方网页：kongbu-game.cc.cd</div>
+  </footer>
 
-const DIRECT_LINKS = {
-  android: "https://c.wss.ink/f/l952uv2zuat",
-  windows: "https://c.wss.ink/f/l951zvyd6kz"
-};
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menuPanel = document.getElementById('menuPanel');
+    function toggleMenu() {
+      menuPanel.classList.toggle('open');
+      menuBtn.innerHTML = menuPanel.classList.contains('open') ? '✕' : '☰';
+    }
+    menuBtn.addEventListener('click', toggleMenu);
 
-let currentLang = "zh";
+    // 正式下载直链（GitHub Release 永久链接）
+    const DIRECT_LINKS = {
+      android: "https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk",
+      windows: "https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip"
+    };
 
-function applyLang(lang) {
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (I18N[lang][key]) el.textContent = I18N[lang][key];
-  });
-  document.querySelectorAll(".lang-switch button").forEach(b => {
-    b.classList.toggle("active", b.getAttribute("data-lang") === lang);
-  });
-  currentLang = lang;
-}
-
-document.querySelectorAll(".lang-switch button").forEach(btn => {
-  btn.addEventListener("click", () => applyLang(btn.getAttribute("data-lang")));
-});
-
-document.getElementById("download-android").addEventListener("click", e => {
-  e.preventDefault();
-  window.open(DIRECT_LINKS.android, "_blank", "noopener");
-});
-document.getElementById("download-windows").addEventListener("click", e => {
-  e.preventDefault();
-  window.open(DIRECT_LINKS.windows, "_blank", "noopener");
-});
-document.getElementById("download-ios").addEventListener("click", e => {
-  e.preventDefault();
-  alert(currentLang === "zh" ? "iOS 版本暂未发布" : "iOS version not yet released");
-});
-
-/* 检查更新：只查安卓 */
-document.getElementById("check-update").addEventListener("click", () => {
-  const msg = document.getElementById("update-msg");
-  msg.textContent = "正在检查更新...";
-
-  fetch("version.json?t=" + Date.now())
-    .then(r => r.json())
-    .then(data => {
-      // 本地安卓版本号（网站写死当前版，APP 以后从自己包里读）
-      const localVersion = "1.0.0";
-      const localCode = 1;
-
-      if (data.android_version_code > localCode) {
-        msg.textContent = "发现新版本 v" + data.android_version + "：" + data.changelog;
-        setTimeout(() => {
-          window.open(data.apk_url, "_blank", "noopener");
-        }, 800);
-      } else {
-        msg.textContent = "当前已是最新版本 v" + localVersion;
-      }
-    })
-    .catch(() => {
-      msg.textContent = "检查更新失败，请稍后再试";
+    function startDownload(url, name) {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+    document.getElementById("dl-android").addEventListener("click", () => {
+      startDownload(DIRECT_LINKS.android, "kongbu_hospital_1.0.6.apk");
     });
-});
-</script>
+    document.getElementById("dl-windows").addEventListener("click", () => {
+      startDownload(DIRECT_LINKS.windows, "kongbu-game.zip");
+    });
+
+    // 检查更新
+    fetch('version.json')
+      .then(res => res.json())
+      .then(data => {
+        const tip = document.getElementById('updateTip');
+        tip.style.display = 'block';
+        tip.innerText = `当前最新版本：${data.android_version} | ${data.changelog}`;
+      })
+      .catch(() => {});
+
+    // 滚动高亮菜单
+    const sections = document.querySelectorAll('.section, .hero');
+    const menuItems = document.querySelectorAll('.menu-item');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 70;
+        if (window.scrollY >= top) current = sec.getAttribute('id');
+      });
+      menuItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === '#' + current) item.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
