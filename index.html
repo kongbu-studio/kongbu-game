@@ -97,7 +97,6 @@
     .btn:active { background: var(--red-hover); }
     .update-tip { margin-top: 15px; font-size: 14px; color: #ff8888; display: none; }
     .dl-note { color: var(--sub); font-size: 12px; margin-top: 8px; }
-    .dl-note a { color: #ff8888; }
     footer { padding: 40px 20px; text-align: center; color: var(--sub); font-size: 14px; background: #050505; }
     footer .bilibili { color: #ff6699; font-weight: bold; margin-bottom: 10px; display: block; }
   </style>
@@ -164,12 +163,12 @@
       <h2>下载游戏</h2>
       <div class="dl-box">
         <div class="update-tip" id="updateTip"></div>
-        <button class="btn" id="dl-android">📱 下载安卓版 (APK)</button>
-        <button class="btn" id="dl-windows">💻 下载电脑版 (Windows)</button>
-        <p class="dl-note">主通道：镜像加速 · 镜像异常自动回退官方原链</p>
-        <p class="dl-note">
-          下载慢？<a href="https://github.com/kongbu-studio/kongbu-game/releases" target="_blank" rel="noopener">前往 GitHub 原链手动下载</a>
-        </p>
+
+        <!-- 直接用官方固定直链，不切镜像 -->
+        <a class="btn" href="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk" target="_blank" rel="noopener">📱 下载安卓版 (APK)</a>
+        <a class="btn" href="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip" target="_blank" rel="noopener">💻 下载电脑版 (Windows)</a>
+
+        <p class="dl-note">下载源：GitHub 官方原链（稳定优先，不自动切换）</p>
       </div>
     </div>
   </section>
@@ -188,65 +187,7 @@
     }
     menuBtn.addEventListener('click', toggleMenu);
 
-    /* ============ 下载源配置 ============ */
-    const RAW = {
-      android: "https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk",
-      windows: "https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip"
-    };
-
-    // 镜像顺序：你测过能用的放前面，后面补常见稳定镜像
-    const MIRROR_PREFIX = [
-      "https://ghproxy.net/",
-      "https://mirror.ghproxy.com/",
-      "https://ghfast.top/",
-      "https://gh.llkk.cc/"
-    ];
-
-    function buildMirrorList(raw) {
-      return MIRROR_PREFIX.map(p => p.replace(/\/$/,'') + "/" + raw).concat([raw]);
-    }
-
-    // 简单前端探测：依次尝试，哪个能先返回就下哪个
-    function smartDownload(kind, idx = 0) {
-      const raw = RAW[kind];
-      const list = buildMirrorList(raw);
-      if (idx >= list.length) {
-        // 全部镜像失败，保底用原链
-        forceDownload(raw);
-        return;
-      }
-      const url = list[idx];
-      const probe = new XMLHttpRequest();
-      probe.open('GET', url, true);
-      probe.timeout = 4000;
-      probe.setRequestHeader('Range', 'bytes=0-1');
-      probe.onload = function () {
-        if (probe.status === 200 || probe.status === 206 || probe.status === 302) {
-          forceDownload(url);
-        } else {
-          smartDownload(kind, idx + 1);
-        }
-      };
-      probe.onerror = function () { smartDownload(kind, idx + 1); };
-      probe.ontimeout = function () { smartDownload(kind, idx + 1); };
-      try { probe.send(); } catch (e) { smartDownload(kind, idx + 1); }
-    }
-
-    function forceDownload(url) {
-      const a = document.createElement("a");
-      a.href = url;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.download = "";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    }
-
-    document.getElementById("dl-android").addEventListener("click", () => smartDownload("android"));
-    document.getElementById("dl-windows").addEventListener("click", () => smartDownload("windows"));
-
-    // 检查更新
+    // 检查更新（只读版本号，不拦截下载）
     fetch('version.json')
       .then(res => res.json())
       .then(data => {
