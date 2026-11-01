@@ -2,703 +2,155 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>恐怖医院 - 官方网站</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
-  --bg:#0a0a0f;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.12);
-  --red:#e02b2b;--green:#1db954;--blue:#2b7fe0;--txt:#e8e8ee;--dim:#8a8a99;
-}
-body{
-  background:var(--bg);color:var(--txt);
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
-  overflow-x:hidden;padding-bottom:40px;
-}
-body::before{
-  content:"";position:fixed;inset:0;z-index:-1;
-  background:
-    radial-gradient(circle at 20% 10%,rgba(224,43,43,.18),transparent 45%),
-    radial-gradient(circle at 80% 60%,rgba(60,0,90,.25),transparent 50%);
-}
-
-/* ===== 顶栏 ===== */
-header{
-  position:sticky;top:0;z-index:100;
-  display:flex;justify-content:space-between;align-items:flex-start;
-  padding:12px 16px;
-  background:rgba(10,10,15,.75);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-}
-.official{
-  font-size:22px;font-weight:900;letter-spacing:2px;
-  background:linear-gradient(90deg,#ff5a5a,#ffb347);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.brand-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-.brand{font-size:17px;font-weight:800;letter-spacing:1px}
-.brand small{display:block;font-size:9px;color:var(--dim);letter-spacing:3px;font-weight:400}
-.lang-btn{
-  display:flex;align-items:center;gap:5px;
-  background:var(--card);border:1px solid var(--line);border-radius:20px;
-  padding:5px 12px;font-size:12px;color:var(--txt);cursor:pointer;
-}
-
-/* ===== 语言菜单 ===== */
-.mask{
-  position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;
-  display:none;opacity:0;transition:.25s;
-}
-.mask.show{display:block;opacity:1}
-.sheet{
-  position:fixed;left:0;right:0;bottom:0;z-index:201;
-  background:#13131a;border-top:1px solid var(--line);
-  border-radius:20px 20px 0 0;
-  transform:translateY(100%);transition:.28s cubic-bezier(.3,1,.4,1);
-  max-height:72vh;display:flex;flex-direction:column;
-}
-.sheet.show{transform:translateY(0)}
-.sheet-bar{width:40px;height:4px;background:var(--line);border-radius:2px;margin:10px auto}
-.sheet h3{text-align:center;font-size:14px;color:var(--dim);padding:6px 0 10px;font-weight:500}
-.lang-list{overflow-y:auto;padding:0 8px 20px}
-.lang-item{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:13px 16px;border-radius:12px;font-size:15px;cursor:pointer;
-}
-.lang-item:active{background:var(--card)}
-.lang-item.on{background:rgba(224,43,43,.18);color:#ff8b8b;font-weight:700}
-
-/* ===== 内容 ===== */
-section{padding:0 16px}
-.hero{padding-top:26px;text-align:center}
-.logo{
-  width:112px;height:112px;margin:0 auto 16px;border-radius:26px;
-  background:linear-gradient(145deg,#2a0d0d,#0d0d14);
-  border:1px solid rgba(224,43,43,.45);
-  display:flex;align-items:center;justify-content:center;
-  font-size:52px;box-shadow:0 0 40px rgba(224,43,43,.3);
-  animation:float 3.4s ease-in-out infinite;
-}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-h1{font-size:31px;font-weight:900;letter-spacing:1px;
-  background:linear-gradient(90deg,#fff,#ff7b7b);
-  -webkit-background-clip:text;background-clip:text;color:transparent;}
-.slogan{color:var(--dim);font-size:13px;margin-top:9px;line-height:1.7}
-
-.tags{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-.tag{
-  font-size:11px;padding:5px 12px;border-radius:20px;
-  background:var(--card);border:1px solid var(--line);color:var(--dim);
-}
-
-.card{
-  background:var(--card);border:1px solid var(--line);
-  border-radius:18px;padding:18px;margin-top:22px;
-}
-.card h2{font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.card h2::before{content:"";width:3px;height:15px;background:var(--red);border-radius:2px}
-.card p{font-size:13.5px;line-height:1.9;color:#b8b8c6}
-
-.feat{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
-.feat:last-child{border:none}
-.feat .ico{font-size:22px;width:34px;text-align:center;flex-shrink:0}
-.feat .tx b{display:block;font-size:13.5px;margin-bottom:3px}
-.feat .tx span{font-size:12px;color:var(--dim);line-height:1.6}
-
-/* 截图横滑 */
-.shots{
-  display:flex;gap:12px;overflow-x:auto;padding:4px 0 12px;
-  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-}
-.shots::-webkit-scrollbar{display:none}
-.shot{
-  flex:0 0 78%;scroll-snap-align:center;aspect-ratio:16/9;border-radius:14px;
-  background:linear-gradient(135deg,#1c0f14,#0c0c12);
-  border:1px solid var(--line);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-  position:relative;overflow:hidden;
-}
-.shot::after{
-  content:"";position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 50%,rgba(224,43,43,.14),transparent 70%);
-}
-.shot .n{font-size:26px;opacity:.6;z-index:1}
-.shot .t{font-size:11px;color:var(--dim);z-index:1}
-
-/* 下载 */
-.dl-zone{margin-top:26px}
-.dl-title{text-align:center;font-size:15px;font-weight:800;margin-bottom:16px}
-.btn{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  width:100%;padding:16px;border-radius:16px;margin-bottom:13px;
-  font-size:15.5px;font-weight:700;color:#fff;text-decoration:none;
-  border:none;position:relative;overflow:hidden;
-  transition:transform .12s;
-}
-.btn:active{transform:scale(.97)}
-.btn .sub{font-size:11px;font-weight:400;opacity:.85}
-.btn.android{background:linear-gradient(135deg,#1db954,#0e8f3c);box-shadow:0 6px 22px rgba(29,185,84,.32)}
-.btn.windows{background:linear-gradient(135deg,#2b7fe0,#1552a3);box-shadow:0 6px 22px rgba(43,127,224,.32)}
-.btn.ios{
-  background:linear-gradient(135deg,#3a3a44,#22222a);
-  color:#6a6a76;box-shadow:none;cursor:not-allowed;
-}
-.btn.ios .cnt{display:flex;align-items:center;gap:10px;
-  filter:grayscale(1);opacity:.5;
-}
-.cross{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  pointer-events:none;
-}
-.cross svg{width:130%;height:130%;stroke:var(--red);stroke-width:3;opacity:.85}
-.badge{
-  position:absolute;right:14px;top:50%;transform:translateY(-50%);
-  background:var(--red);font-size:10.5px;padding:4px 10px;border-radius:12px;
-  font-weight:700;letter-spacing:.5px;
-}
-.tip{text-align:center;font-size:11.5px;color:var(--dim);margin-top:14px;line-height:1.7}
-
-footer{text-align:center;padding:26px 16px 0;color:var(--dim);font-size:11px;line-height:1.9}
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { height:100%; overflow-x:hidden; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background:#0a0a0f; color:#e8e8ea;
+    display:flex; flex-direction:column; min-height:100vh;
+  }
+  .topbar {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 20px; position:sticky; top:0; z-index:50;
+    background:rgba(10,10,15,.82); backdrop-filter:blur(10px);
+  }
+  .badge {
+    font-size:12px; padding:5px 12px; border-radius:20px;
+    background:rgba(220,38,38,.15); color:#ff5b5b;
+    border:1px solid rgba(220,38,38,.35);
+  }
+  .brand { font-size:20px; font-weight:800; letter-spacing:1px; }
+  .lang-switch { display:flex; gap:6px; }
+  .lang-switch button {
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
+    color:#ccc; font-size:13px; padding:5px 10px; border-radius:8px; cursor:pointer;
+  }
+  .lang-switch button.active { background:#dc2626; color:#fff; border-color:#dc2626; }
+  .hero {
+    flex:1; display:flex; flex-direction:column; justify-content:center;
+    align-items:center; text-align:center; padding:40px 22px;
+  }
+  .icon {
+    width:96px; height:96px; border-radius:22px; margin-bottom:26px;
+    background:linear-gradient(135deg,#7c1d1d,#dc2626);
+    display:flex; align-items:center; justify-content:center;
+    font-size:46px; box-shadow:0 10px 40px rgba(220,38,38,.25);
+  }
+  h1 { font-size:34px; font-weight:900; margin-bottom:10px; }
+  .sub { font-size:15px; color:#9a9aa0; margin-bottom:28px; line-height:1.7; }
+  .tags { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:36px; }
+  .tag {
+    font-size:13px; padding:7px 16px; border-radius:20px;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+  }
+  .intro { max-width:460px; font-size:14px; line-height:1.9; color:#b8b8be; }
+  .intro h3 { color:#fff; margin-bottom:14px; font-size:16px; }
+  .footer {
+    padding:26px 20px 40px; border-top:1px solid rgba(255,255,255,.06);
+    display:flex; flex-direction:column; align-items:center; gap:14px;
+  }
+  .footer-title { font-size:14px; color:#888; margin-bottom:4px; }
+  .btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+  .dl-btn {
+    padding:13px 26px; border-radius:14px; font-size:15px; font-weight:700;
+    cursor:pointer; border:none; min-width:150px;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .dl-android { background:#dc2626; color:#fff; }
+  .dl-windows { background:#2563eb; color:#fff; }
+  .dl-ios { background:#2a2a30; color:#777; cursor:not-allowed; }
 </style>
 </head>
 <body>
-
-<header>
-  <div class="official" data-i18n="official">官方网站</div>
-  <div class="brand-wrap">
-    <div class="brand">恐怖医院<small>KONGBU</small></div>
-    <div class="lang-btn" id="langBtn"><span>🌐</span><span data-i18n="switchLang">切换语言</span></div>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="logo">🏥</div>
-  <h1 data-i18n="gameTitle">恐怖医院</h1>
-  <p class="slogan" data-i18n="slogan">废弃医院深处，有什么东西一直在等你。<br>带上手电，别回头。</p>
-  <div class="tags">
-    <span class="tag" data-i18n="tag1">恐怖生存</span>
-    <span class="tag" data-i18n="tag2">单人剧情</span>
-    <span class="tag" data-i18n="tag3">离线可玩</span>
-    <span class="tag" data-i18n="tag4">免费下载</span>
-  </div>
-</section>
-
-<section>
-  <div class="card">
-    <h2 data-i18n="aboutTitle">游戏介绍</h2>
-    <p data-i18n="aboutText">你是这家医院最后一个夜班保安。凌晨两点，走廊的灯开始闪烁，走廊尽头的病房传来了不该有的声音。你需要找到出口，但每一扇门后面，都可能藏着不该看的东西。</p>
-  </div>
-
-  <div class="card">
-    <h2 data-i18n="featTitle">游戏特色</h2>
-    <div class="feat"><div class="ico">🔦</div><div class="tx"><b data-i18n="f1t">真实光影</b><span data-i18n="f1d">手电电量有限，黑暗中有东西在移动</span></div></div>
-    <div class="feat"><div class="ico">🎧</div><div class="tx"><b data-i18n="f2t">3D 音效</b><span data-i18n="f2d">戴耳机游玩，脚步声会告诉你它在哪</span></div></div>
-    <div class="feat"><div class="ico">🧩</div><div class="tx"><b data-i18n="f3t">烧脑解谜</b><span data-i18n="f3d">20+ 机关谜题，线索藏在病历与录音里</span></div></div>
-    <div class="feat"><div class="ico">📖</div><div class="tx"><b data-i18n="f4t">多结局</b><span data-i18n="f4d">你的每个选择都会改变最后的真相</span></div></div>
-    <div class="feat"><div class="ico">📱</div><div class="tx"><b data-i18n="f5t">全平台</b><span data-i18n="f5d">手机电脑都能玩，数据互通</span></div></div>
-  </div>
-
-  <div class="card">
-    <h2 data-i18n="shotTitle">游戏画面</h2>
-    <div class="shots" id="shots"></div>
-  </div>
-
-  <div class="dl-zone">
-    <div class="dl-title" data-i18n="dlTitle">立即下载</div>
-
-    <div class="btn ios">
-      <div class="cnt"><span style="font-size:20px"></span><span data-i18n="iosBtn">iOS 版下载</span></div>
-      <div class="cross">
-        <svg viewBox="0 0 100 40" preserveAspectRatio="none">
-          <line x1="2" y1="2" x2="98" y2="38"/><line x1="98" y1="2" x2="2" y2="38"/>
-        </svg>
-      </div>
-      <span class="badge" data-i18n="soon">敬请期待</span>
+  <div class="topbar">
+    <span class="badge" data-i18n="official">官方网站</span>
+    <span class="brand">恐怖医院</span>
+    <div class="lang-switch">
+      <button data-lang="zh" class="active">中</button>
+      <button data-lang="en">EN</button>
     </div>
-
-    <a class="btn android" id="btnAndroid" href="#" download>
-      <span style="font-size:20px">🤖</span>
-      <span><span data-i18n="androidBtn">Android 版下载</span><br><span class="sub">APK · <span data-i18n="ver">最新版本</span></span></span>
-    </a>
-
-    <a class="btn windows" id="btnWindows" href="#" download>
-      <span style="font-size:20px">🪟</span>
-      <span><span data-i18n="winBtn">Windows 版下载</span><br><span class="sub">ZIP · <span data-i18n="ver">最新版本</span></span></span>
-    </a>
-
-    <p class="tip" data-i18n="tip">安装包安全可靠，无需联网即可游玩<br>遇到问题请联系官方邮箱</p>
   </div>
-</section>
 
-<footer>
-  <div>© 2026 KONGBU STUDIO</div>
-  <div data-i18n="footer">恐怖医院 · 官方网站</div>
-</footer>
+  <div class="hero">
+    <div class="icon">🏥</div>
+    <h1 data-i18n="title">恐怖医院</h1>
+    <p class="sub" data-i18n="subtitle">在废弃医院中生存，揭开隐藏的真相</p>
+    <div class="tags">
+      <span class="tag" data-i18n="tag1">恐怖生存</span>
+      <span class="tag" data-i18n="tag2">单人剧情</span>
+      <span class="tag" data-i18n="tag3">离线可玩</span>
+      <span class="tag" data-i18n="tag4">免费下载</span>
+    </div>
+    <div class="intro">
+      <h3 data-i18n="introTitle">关于游戏</h3>
+      <p data-i18n="introText">你在一所废弃的精神病院中醒来，黑暗中潜伏着未知的危险。探索、解谜、生存，揭开这家医院背后的黑暗实验。支持 Android 与 Windows 平台。</p>
+    </div>
+  </div>
 
-<div class="mask" id="mask"></div>
-<div class="sheet" id="sheet">
-  <div class="sheet-bar"></div>
-  <h3 data-i18n="chooseLang">选择语言</h3>
-  <div class="lang-list" id="langList"></div>
-</div>
+  <div class="footer">
+    <div class="footer-title" data-i18n="downloadTitle">选择平台下载</div>
+    <div class="btns">
+      <button class="dl-btn dl-android" id="download-android">📱 Android</button>
+      <button class="dl-btn dl-windows" id="download-windows">💻 Windows</button>
+      <button class="dl-btn dl-ios" id="download-ios">🍎 iOS（暂未发布）</button>
+    </div>
+  </div>
 
 <script>
-/* ===== 20 种语言 ===== */
-const LANGS=[
- {c:'zh',n:'简体中文',f:'🇨🇳'},
- {c:'tw',n:'繁體中文',f:'🇹🇼'},
- {c:'en',n:'English',f:'🇺🇸'},
- {c:'ko',n:'한국어',f:'🇰🇷'},
- {c:'ja',n:'日本語',f:'🇯🇵'},
- {c:'es',n:'Español',f:'🇪🇸'},
- {c:'fr',n:'Français',f:'🇫🇷'},
- {c:'de',n:'Deutsch',f:'🇩🇪'},
- {c:'ru',n:'Русский',f:'🇷🇺'},
- {c:'pt',n:'Português',f:'🇵🇹'},
- {c:'it',n:'Italiano',f:'🇮🇹'},
- {c:'tr',n:'Türkçe',f:'🇹🇷'},
- {c:'ar',n:'العربية',f:'🇸🇦'},
- {c:'hi',n:'हिन्दी',f:'🇮🇳'},
- {c:'th',n:'ไทย',f:'🇹🇭'},
- {c:'vi',n:'Tiếng Việt',f:'🇻🇳'},
- {c:'id',n:'Bahasa Indonesia',f:'🇮🇩'},
- {c:'pl',n:'Polski',f:'🇵🇱'},
- {c:'nl',n:'Nederlands',f:'🇳🇱'},
- {c:'sv',n:'Svenska',f:'🇸🇪'}
-];
-
-const T={
- zh:{official:'官方网站',switchLang:'切换语言',chooseLang:'选择语言',gameTitle:'恐怖医院',
-  slogan:'废弃医院深处，有什么东西一直在等你。<br>带上手电，别回头。',
-  tag1:'恐怖生存',tag2:'单人剧情',tag3:'离线可玩',tag4:'免费下载',
-  aboutTitle:'游戏介绍',
-  aboutText:'你是这家医院最后一个夜班保安。凌晨两点，走廊的灯开始闪烁，走廊尽头的病房传来了不该有的声音。你需要找到出口，但每一扇门后面，都可能藏着不该看的东西。',
-  featTitle:'游戏特色',
-  f1t:'真实光影',f1d:'手电电量有限，黑暗中有东西在移动',
-  f2t:'3D 音效',f2d:'戴耳机游玩，脚步声会告诉你它在哪',
-  f3t:'烧脑解谜',f3d:'20+ 机关谜题，线索藏在病历与录音里',
-  f4t:'多结局',f4d:'你的每个选择都会改变最后的真相',
-  f5t:'全平台',f5d:'手机电脑都能玩，数据互通',
-  shotTitle:'游戏画面',shot:'游戏截图',
-  dlTitle:'立即下载',iosBtn:'iOS 版下载',androidBtn:'Android 版下载',winBtn:'Windows 版下载',
-  soon:'敬请期待',ver:'最新版本',
-  tip:'安装包安全可靠，无需联网即可游玩<br>遇到问题请联系官方邮箱',
-  footer:'恐怖医院 · 官方网站'},
-
- tw:{official:'官方網站',switchLang:'切換語言',chooseLang:'選擇語言',gameTitle:'恐怖醫院',
-  slogan:'廢棄醫院深處，有什麼東西一直在等你。<br>帶上手電，別回頭。',
-  tag1:'恐怖生存',tag2:'單人劇情',tag3:'離線可玩',tag4:'免費下載',
-  aboutTitle:'遊戲介紹',
-  aboutText:'你是這家醫院最後一個夜班保全。凌晨兩點，走廊的燈開始閃爍，走廊盡頭的病房傳來了不該有的聲音。你需要找到出口，但每一扇門後面，都可能藏著不該看的東西。',
-  featTitle:'遊戲特色',
-  f1t:'真實光影',f1d:'手電電量有限，黑暗中有東西在移動',
-  f2t:'3D 音效',f2d:'戴耳機遊玩，腳步聲會告訴你它在哪',
-  f3t:'燒腦解謎',f3d:'20+ 機關謎題，線索藏在病歷與錄音裡',
-  f4t:'多重結局',f4d:'你的每個選擇都會改變最後的真相',
-  f5t:'全平台',f5d:'手機電腦都能玩，資料互通',
-  shotTitle:'遊戲畫面',shot:'遊戲截圖',
-  dlTitle:'立即下載',iosBtn:'iOS 版下載',androidBtn:'Android 版下載',winBtn:'Windows 版下載',
-  soon:'敬請期待',ver:'最新版本',
-  tip:'安裝包安全可靠，無需聯網即可遊玩<br>遇到問題請聯繫官方信箱',
-  footer:'恐怖醫院 · 官方網站'},
-
- en:{official:'OFFICIAL SITE',switchLang:'Language',chooseLang:'Select Language',gameTitle:'Horror Hospital',
-  slogan:'Something has been waiting for you<br>in the depths of the abandoned hospital.',
-  tag1:'Horror',tag2:'Story',tag3:'Offline',tag4:'Free',
-  aboutTitle:'About the Game',
-  aboutText:'You are the last night guard of this hospital. At 2 AM, the corridor lights begin to flicker, and a sound that should not exist comes from the ward at the end of the hall. Find the exit — but behind every door, something you should not see may be hiding.',
-  featTitle:'Features',
-  f1t:'Realistic Lighting',f1d:'Limited flashlight battery; something moves in the dark',
-  f2t:'3D Audio',f2d:'Play with headphones — footsteps tell you where it is',
-  f3t:'Puzzles',f3d:'20+ mechanisms, clues hidden in records and tapes',
-  f4t:'Multiple Endings',f4d:'Every choice changes the final truth',
-  f5t:'Cross-platform',f5d:'Play on mobile or PC with synced progress',
-  shotTitle:'Screenshots',shot:'Screenshot',
-  dlTitle:'Download Now',iosBtn:'Download for iOS',androidBtn:'Download for Android',winBtn:'Download for Windows',
-  soon:'Coming Soon',ver:'Latest Version',
-  tip:'Safe installer, playable offline<br>Contact our official email for support',
-  footer:'Horror Hospital · Official Site'},
-
- ko:{official:'공식 사이트',switchLang:'언어 변경',chooseLang:'언어 선택',gameTitle:'공포 병원',
-  slogan:'버려진 병원 깊은 곳, 무언가가 당신을 기다리고 있습니다.<br>손전등을 챙기세요. 뒤돌아보지 마세요.',
-  tag1:'공포',tag2:'스토리',tag3:'오프라인',tag4:'무료',
-  aboutTitle:'게임 소개',
-  aboutText:'당신은 이 병원의 마지막 야간 경비원입니다. 새벽 2시, 복도의 불이 깜빡이기 시작하고 복도 끝 병동에서 있어서는 안 될 소리가 들려옵니다. 출구를 찾아야 합니다. 하지만 모든 문 뒤에 보지 말아야 할 것이 숨어 있을지 모릅니다.',
-  featTitle:'게임 특징',
-  f1t:'사실적인 조명',f1d:'손전등 배터리는 한정되어 있고, 어둠 속에서 무언가 움직입니다',
-  f2t:'3D 사운드',f2d:'이어폰으로 플레이하세요. 발소리가 위치를 알려줍니다',
-  f3t:'퍼즐',f3d:'20개 이상의 장치, 단서는 기록과 테이프에 숨겨져 있습니다',
-  f4t:'멀티 엔딩',f4d:'모든 선택이 마지막 진실을 바꿉니다',
-  f5t:'멀티 플랫폼',f5d:'모바일과 PC에서 진행 상황 동기화',
-  shotTitle:'게임 화면',shot:'스크린샷',
-  dlTitle:'지금 다운로드',iosBtn:'iOS 다운로드',androidBtn:'Android 다운로드',winBtn:'Windows 다운로드',
-  soon:'출시 예정',ver:'최신 버전',
-  tip:'안전한 설치 파일, 오프라인 플레이 가능<br>문의는 공식 이메일로',
-  footer:'공포 병원 · 공식 사이트'},
-
- ja:{official:'公式サイト',switchLang:'言語切替',chooseLang:'言語を選択',gameTitle:'恐怖病院',
-  slogan:'廃墟となった病院の奥で、何かがずっとあなたを待っている。<br>懐中電灯を持って。決して振り返らないで。',
-  tag1:'ホラー',tag2:'ストーリー',tag3:'オフライン',tag4:'無料',
-  aboutTitle:'ゲーム紹介',
-  aboutText:'あなたはこの病院最後の夜勤警備員。午前2時、廊下の照明が点滅し始め、廊下の突き当たりの病室からあってはならない音が聞こえる。出口を見つけなければならない。しかしすべてのドアの向こうに、見てはならないものが隠れているかもしれない。',
-  featTitle:'ゲームの特徴',
-  f1t:'リアルな光影',f1d:'懐中電灯の電池は限られ、暗闇で何かが動く',
-  f2t:'3Dサウンド',f2d:'イヤホンで遊べば足音が居場所を教えてくれる',
-  f3t:'難解なパズル',f3d:'20以上の仕掛け、手がかりはカルテとテープに',
-  f4t:'マルチエンディング',f4d:'すべての選択が最後の真実を変える',
-  f5t:'全プラットフォーム',f5d:'スマホでもPCでも、データは同期',
-  shotTitle:'ゲーム画面',shot:'スクリーンショット',
-  dlTitle:'今すぐダウンロード',iosBtn:'iOS版ダウンロード',androidBtn:'Android版ダウンロード',winBtn:'Windows版ダウンロード',
-  soon:'近日公開',ver:'最新バージョン',
-  tip:'安全なインストーラー、オフラインでプレイ可能<br>お問い合わせは公式メールまで',
-  footer:'恐怖病院 · 公式サイト'},
-
- es:{official:'SITIO OFICIAL',switchLang:'Idioma',chooseLang:'Seleccionar idioma',gameTitle:'Hospital del Terror',
-  slogan:'Algo te ha estado esperando en lo profundo<br>del hospital abandonado.',
-  tag1:'Terror',tag2:'Historia',tag3:'Sin conexión',tag4:'Gratis',
-  aboutTitle:'Acerca del juego',
-  aboutText:'Eres el último guardia nocturno del hospital. A las 2 a.m., las luces del pasillo empiezan a parpadear y un sonido imposible llega desde la sala del fondo. Encuentra la salida, pero detrás de cada puerta puede esconderse algo que no deberías ver.',
-  featTitle:'Características',
-  f1t:'Iluminación real',f1d:'Batería limitada; algo se mueve en la oscuridad',
-  f2t:'Audio 3D',f2d:'Juega con auriculares, los pasos revelan su posición',
-  f3t:'Puzles',f3d:'Más de 20 mecanismos, pistas en historias y cintas',
-  f4t:'Varios finales',f4d:'Cada decisión cambia la verdad final',
-  f5t:'Multiplataforma',f5d:'Juega en móvil o PC con progreso sincronizado',
-  shotTitle:'Capturas',shot:'Captura',
-  dlTitle:'Descargar ahora',iosBtn:'Descargar para iOS',androidBtn:'Descargar para Android',winBtn:'Descargar para Windows',
-  soon:'Próximamente',ver:'Última versión',
-  tip:'Instalador seguro, jugable sin conexión<br>Contacta con nuestro correo oficial',
-  footer:'Hospital del Terror · Sitio Oficial'},
-
- fr:{official:'SITE OFFICIEL',switchLang:'Langue',chooseLang:'Choisir une langue',gameTitle:'Hôpital de l\'Horreur',
-  slogan:'Quelque chose vous attend depuis longtemps<br>dans les profondeurs de l\'hôpital abandonné.',
-  tag1:'Horreur',tag2:'Histoire',tag3:'Hors ligne',tag4:'Gratuit',
-  aboutTitle:'À propos du jeu',
-  aboutText:'Vous êtes le dernier gardien de nuit de cet hôpital. À 2 h du matin, les lumières du couloir vacillent et un son impossible provient de la salle du fond. Trouvez la sortie, mais derrière chaque porte peut se cacher ce que vous ne devriez pas voir.',
-  featTitle:'Caractéristiques',
-  f1t:'Lumière réaliste',f1d:'Batterie limitée ; quelque chose bouge dans le noir',
-  f2t:'Audio 3D',f2d:'Jouez au casque, les pas révèlent sa position',
-  f3t:'Énigmes',f3d:'Plus de 20 mécanismes, indices dans les dossiers',
-  f4t:'Plusieurs fins',f4d:'Chaque choix change la vérité finale',
-  f5t:'Multiplateforme',f5d:'Jouez sur mobile ou PC avec progression synchronisée',
-  shotTitle:'Captures',shot:'Capture',
-  dlTitle:'Télécharger',iosBtn:'Télécharger pour iOS',androidBtn:'Télécharger pour Android',winBtn:'Télécharger pour Windows',
-  soon:'Bientôt',ver:'Dernière version',
-  tip:'Installateur sûr, jouable hors ligne<br>Contactez notre email officiel',
-  footer:'Hôpital de l\'Horreur · Site Officiel'},
-
- de:{official:'OFFIZIELLE SEITE',switchLang:'Sprache',chooseLang:'Sprache wählen',gameTitle:'Horror-Krankenhaus',
-  slogan:'Etwas wartet tief im verlassenen Krankenhaus auf dich.',
-  tag1:'Horror',tag2:'Geschichte',tag3:'Offline',tag4:'Kostenlos',
-  aboutTitle:'Über das Spiel',
-  aboutText:'Du bist der letzte Nachtwächter dieses Krankenhauses. Um 2 Uhr morgens flackern die Flurlichten und aus dem Zimmer am Ende des Gangs dringt ein unmögliches Geräusch. Finde den Ausgang — doch hinter jeder Tür könnte etwas lauern, das du nicht sehen solltest.',
-  featTitle:'Merkmale',
-  f1t:'Realistisches Licht',f1d:'Begrenzte Batterie; etwas bewegt sich im Dunkeln',
-  f2t:'3D-Audio',f2d:'Mit Kopfhörern spielen, Schritte verraten den Ort',
-  f3t:'Rätsel',f3d:'Über 20 Mechaniken, Hinweise in Akten und Bändern',
-  f4t:'Mehrere Enden',f4d:'Jede Entscheidung ändert die letzte Wahrheit',
-  f5t:'Plattformübergreifend',f5d:'Auf Mobil und PC mit synchronem Fortschritt',
-  shotTitle:'Bilder',shot:'Bildschirmfoto',
-  dlTitle:'Jetzt herunterladen',iosBtn:'Für iOS laden',androidBtn:'Für Android laden',winBtn:'Für Windows laden',
-  soon:'Demnächst',ver:'Neueste Version',
-  tip:'Sicherer Installer, offline spielbar<br>Kontaktiere unsere offizielle E-Mail',
-  footer:'Horror-Krankenhaus · Offizielle Seite'},
-
- ru:{official:'ОФИЦИАЛЬНЫЙ САЙТ',switchLang:'Язык',chooseLang:'Выберите язык',gameTitle:'Больница ужаса',
-  slogan:'Что-то давно ждёт тебя в глубине заброшенной больницы.',
-  tag1:'Хоррор',tag2:'Сюжет',tag3:'Офлайн',tag4:'Бесплатно',
-  aboutTitle:'Об игре',
-  aboutText:'Ты — последний ночной охранник этой больницы. В два часа ночи свет в коридоре начинает мигать, а из палаты в конце доносится невозможный звук. Найди выход, но за каждой дверью может скрываться то, чего тебе не следовало видеть.',
-  featTitle:'Особенности',
-  f1t:'Реалистичный свет',f1d:'Заряд фонаря ограничен, в темноте кто-то движется',
-  f2t:'3D-звук',f2d:'Играй в наушниках — шаги подскажут, где оно',
-  f3t:'Головоломки',f3d:'20+ механизмов, подсказки в картах и записях',
-  f4t:'Несколько концовок',f4d:'Каждый выбор меняет финальную правду',
-  f5t:'Все платформы',f5d:'Играй на телефоне и ПК с синхронизацией',
-  shotTitle:'Скриншоты',shot:'Скриншот',
-  dlTitle:'Скачать',iosBtn:'Скачать для iOS',androidBtn:'Скачать для Android',winBtn:'Скачать для Windows',
-  soon:'Скоро',ver:'Последняя версия',
-  tip:'Безопасный установщик, играется офлайн<br>Поддержка — на официальной почте',
-  footer:'Больница ужаса · Официальный сайт'},
-
- pt:{official:'SITE OFICIAL',switchLang:'Idioma',chooseLang:'Escolher idioma',gameTitle:'Hospital do Terror',
-  slogan:'Algo espera por você nas profundezas<br>do hospital abandonado.',
-  tag1:'Terror',tag2:'História',tag3:'Offline',tag4:'Grátis',
-  aboutTitle:'Sobre o jogo',
-  aboutText:'Você é o último vigia noturno deste hospital. Às 2 da manhã, as luzes do corredor começam a piscar e um som impossível vem da enfermaria no fim do corredor. Encontre a saída, mas atrás de cada porta pode se esconder algo que você não deveria ver.',
-  featTitle:'Recursos',
-  f1t:'Iluminação real',f1d:'Bateria limitada; algo se move no escuro',
-  f2t:'Áudio 3D',f2d:'Jogue com fones, os passos revelam onde está',
-  f3t:'Quebra-cabeças',f3d:'Mais de 20 mecanismos, pistas em prontuários',
-  f4t:'Vários finais',f4d:'Cada escolha muda a verdade final',
-  f5t:'Multiplataforma',f5d:'Jogue no celular ou PC com progresso sincronizado',
-  shotTitle:'Imagens',shot:'Captura',
-  dlTitle:'Baixar agora',iosBtn:'Baixar para iOS',androidBtn:'Baixar para Android',winBtn:'Baixar para Windows',
-  soon:'Em breve',ver:'Última versão',
-  tip:'Instalador seguro, jogável offline<br>Fale com nosso email oficial',
-  footer:'Hospital do Terror · Site Oficial'},
-
- it:{official:'SITO UFFICIALE',switchLang:'Lingua',chooseLang:'Scegli la lingua',gameTitle:'Ospedale dell\'Orrore',
-  slogan:'Qualcosa ti aspetta da tempo<br>nelle profondità dell\'ospedale abbandonato.',
-  tag1:'Horror',tag2:'Storia',tag3:'Offline',tag4:'Gratis',
-  aboutTitle:'Informazioni sul gioco',
-  aboutText:'Sei l\'ultimo guardiano notturno di questo ospedale. Alle 2 del mattino le luci del corridoio iniziano a tremolare e un suono impossibile arriva dalla corsia in fondo. Trova l\'uscita, ma dietro ogni porta potrebbe nascondersi ciò che non dovresti vedere.',
-  featTitle:'Caratteristiche',
-  f1t:'Illuminazione reale',f1d:'Batteria limitata; qualcosa si muove nel buio',
-  f2t:'Audio 3D',f2d:'Gioca con le cuffie, i passi rivelano la posizione',
-  f3t:'Enigmi',f3d:'Oltre 20 meccanismi, indizi in cartelle e nastri',
-  f4t:'Finali multipli',f4d:'Ogni scelta cambia la verità finale',
-  f5t:'Multipiattaforma',f5d:'Gioca su mobile o PC con progressi sincronizzati',
-  shotTitle:'Immagini',shot:'Screenshot',
-  dlTitle:'Scarica ora',iosBtn:'Scarica per iOS',androidBtn:'Scarica per Android',winBtn:'Scarica per Windows',
-  soon:'In arrivo',ver:'Ultima versione',
-  tip:'Installer sicuro, giocabile offline<br>Contatta la nostra email ufficiale',
-  footer:'Ospedale dell\'Orrore · Sito Ufficiale'},
-
- tr:{official:'RESMİ SİTE',switchLang:'Dil',chooseLang:'Dil seçin',gameTitle:'Korku Hastanesi',
-  slogan:'Terk edilmiş hastanenin derinliklerinde<br>bir şey seni bekliyor.',
-  tag1:'Korku',tag2:'Hikaye',tag3:'Çevrimdışı',tag4:'Ücretsiz',
-  aboutTitle:'Oyun hakkında',
-  aboutText:'Bu hastanenin son gece bekçisisin. Sabaha karşı 2\'de koridor ışıkları titremeye başlar ve koridorun sonundaki koğuştan olmaması gereken bir ses gelir. Çıkışı bulmalısın, ama her kapının ardında görmemen gereken bir şey saklanıyor olabilir.',
-  featTitle:'Özellikler',
-  f1t:'Gerçekçi ışık',f1d:'Sınırlı pil; karanlıkta bir şey hareket ediyor',
-  f2t:'3D ses',f2d:'Kulaklıkla oyna, ayak sesleri yerini söyler',
-  f3t:'Bulmacalar',f3d:'20+ mekanizma, ipuçları kayıt ve kasetlerde',
-  f4t:'Çoklu son',f4d:'Her seçim son gerçeği değiştirir',
-  f5t:'Tüm platformlar',f5d:'Mobil ve PC\'de senkronize ilerleme',
-  shotTitle:'Ekranlar',shot:'Ekran görüntüsü',
-  dlTitle:'Şimdi indir',iosBtn:'iOS için indir',androidBtn:'Android için indir',winBtn:'Windows için indir',
-  soon:'Çok yakında',ver:'Son sürüm',
-  tip:'Güvenli yükleyici, çevrimdışı oynanabilir<br>Destek için resmi e-postamıza yazın',
-  footer:'Korku Hastanesi · Resmi Site'},
-
- ar:{official:'الموقع الرسمي',switchLang:'اللغة',chooseLang:'اختر اللغة',gameTitle:'مستشفى الرعب',
-  slogan:'شيء ما ينتظرك في أعماق<br>المستشفى المهجور.',
-  tag1:'رعب',tag2:'قصة',tag3:'بدون إنترنت',tag4:'مجاني',
-  aboutTitle:'عن اللعبة',
-  aboutText:'أنت آخر حارس ليلي في هذا المستشفى. في الساعة الثانية صباحاً، تبدأ أضواء الممر بالوميض، ويأتي صوت لا يجب أن يوجد من الغرفة في نهاية الممر. اعثر على المخرج، لكن خلف كل باب قد يختبئ ما لا يجب أن تراه.',
-  featTitle:'المميزات',
-  f1t:'إضاءة واقعية',f1d:'بطارية محدودة؛ شيء يتحرك في الظلام',
-  f2t:'صوت ثلاثي الأبعاد',f2d:'العب بسماعات، خطواته تكشف مكانه',
-  f3t:'ألغاز',f3d:'أكثر من 20 آلية، الأدلة مخفية في السجلات',
-  f4t:'نهايات متعددة',f4d:'كل اختيار يغير الحقيقة الأخيرة',
-  f5t:'كل المنصات',f5d:'العب على الجوال أو الكمبيوتر مع مزامنة التقدم',
-  shotTitle:'لقطات',shot:'لقطة شاشة',
-  dlTitle:'حمّل الآن',iosBtn:'تحميل لـ iOS',androidBtn:'تحميل لأندرويد',winBtn:'تحميل لويندوز',
-  soon:'قريباً',ver:'أحدث إصدار',
-  tip:'مثبت آمن، يعمل بدون إنترنت<br>للدعم راسل بريدنا الرسمي',
-  footer:'مستشفى الرعب · الموقع الرسمي'},
-
- hi:{official:'आधिकारिक साइट',switchLang:'भाषा',chooseLang:'भाषा चुनें',gameTitle:'हॉरर हॉस्पिटल',
-  slogan:'परित्यक्त अस्पताल की गहराई में<br>कुछ तुम्हारा इंतज़ार कर रहा है।',
-  tag1:'हॉरर',tag2:'कहानी',tag3:'ऑफलाइन',tag4:'मुफ़्त',
-  aboutTitle:'गेम के बारे में',
-  aboutText:'तुम इस अस्पताल के आखिरी नाइट गार्ड हो। रात के 2 बजे, गलियारे की रोशनी टिमटिमाने लगती है और अंत के वार्ड से एक अजीब आवाज़ आती है। बाहर निकलने का रास्ता खोजो, लेकिन हर दरवाज़े के पीछे कुछ ऐसा छिपा हो सकता है जिसे तुम्हें नहीं देखना चाहिए।',
-  featTitle:'विशेषताएँ',
-  f1t:'वास्तविक रोशनी',f1d:'सीमित बैटरी; अंधेरे में कुछ हिल रहा है',
-  f2t:'3D ऑडियो',f2d:'हेडफोन से खेलो, कदम बताते हैं कि वह कहाँ है',
-  f3t:'पहेलियाँ',f3d:'20+ तंत्र, सुराग रिकॉर्ड और टेप में छिपे हैं',
-  f4t:'कई अंत',f4d:'हर चुनाव अंतिम सच्चाई बदल देता है',
-  f5t:'सभी प्लेटफ़ॉर्म',f5d:'मोबाइल और PC पर समन्वयित प्रगति',
-  shotTitle:'स्क्रीनशॉट',shot:'स्क्रीनशॉट',
-  dlTitle:'अभी डाउनलोड करें',iosBtn:'iOS के लिए डाउनलोड',androidBtn:'Android के लिए डाउनलोड',winBtn:'Windows के लिए डाउनलोड',
-  soon:'जल्द आ रहा है',ver:'नवीनतम संस्करण',
-  tip:'सुरक्षित इंस्टॉलर, ऑफलाइन खेलने योग्य<br>सहायता के लिए आधिकारिक ईमेल पर संपर्क करें',
-  footer:'हॉरर हॉस्पिटल · आधिकारिक साइट'},
-
- th:{official:'เว็บไซต์ทางการ',switchLang:'ภาษา',chooseLang:'เลือกภาษา',gameTitle:'โรงพยาบาลสยองขวัญ',
-  slogan:'มีบางอย่างรอคุณอยู่ในความลึก<br>ของโรงพยาบาลร้างแห่งนี้',
-  tag1:'สยองขวัญ',tag2:'เนื้อเรื่อง',tag3:'ออฟไลน์',tag4:'ฟรี',
-  aboutTitle:'เกี่ยวกับเกม',
-  aboutText:'คุณคือยามเวรดึกคนสุดท้ายของโรงพยาบาลแห่งนี้ ตอนตีสอง ไฟในทางเดินเริ่มกะพริบ และมีเสียงที่ไม่ควรมีดังมาจากหอผู้ป่วยสุดทาง คุณต้องหาทางออก แต่หลังประตูทุกบานอาจซ่อนสิ่งที่คุณไม่ควรเห็น',
-  featTitle:'จุดเด่น',
-  f1t:'แสงเงาสมจริง',f1d:'แบตเตอรี่จำกัด มีบางอย่างเคลื่อนไหวในความมืด',
-  f2t:'เสียง 3 มิติ',f2d:'เล่นกับหูฟัง เสียงฝีเท้าจะบอกว่ามันอยู่ไหน',
-  f3t:'ปริศนา',f3d:'กลไกกว่า 20 แห่ง เบาะแสซ่อนในแฟ้มและเทป',
-  f4t:'หลายตอนจบ',f4d:'ทุกการเลือกเปลี่ยนความจริงครั้งสุดท้าย',
-  f5t:'ทุกแพลตฟอร์ม',f5d:'เล่นบนมือถือหรือ PC พร้อมซิงค์ความคืบหน้า',
-  shotTitle:'ภาพหน้าจอ',shot:'ภาพหน้าจอ',
-  dlTitle:'ดาวน์โหลดเลย',iosBtn:'ดาวน์โหลดสำหรับ iOS',androidBtn:'ดาวน์โหลดสำหรับ Android',winBtn:'ดาวน์โหลดสำหรับ Windows',
-  soon:'เร็วๆ นี้',ver:'เวอร์ชันล่าสุด',
-  tip:'ตัวติดตั้งปลอดภัย เล่นแบบออฟไลน์ได้<br>ติดต่ออีเมลทางการสำหรับความช่วยเหลือ',
-  footer:'โรงพยาบาลสยองขวัญ · เว็บไซต์ทางการ'},
-
- vi:{official:'TRANG CHÍNH THỨC',switchLang:'Ngôn ngữ',chooseLang:'Chọn ngôn ngữ',gameTitle:'Bệnh Viện Kinh Hoàng',
-  slogan:'Có thứ gì đó đang chờ bạn trong<br>những góc sâu của bệnh viện bỏ hoang.',
-  tag1:'Kinh dị',tag2:'Cốt truyện',tag3:'Ngoại tuyến',tag4:'Miễn phí',
-  aboutTitle:'Về trò chơi',
-  aboutText:'Bạn là người bảo vệ ca đêm cuối cùng của bệnh viện này. Lúc 2 giờ sáng, đèn hành lang bắt đầu chớp nháy và một âm thanh không thể có vọng ra từ phòng bệnh ở cuối hành lang. Hãy tìm lối ra, nhưng sau mỗi cánh cửa có thể ẩn chứa điều bạn không nên thấy.',
-  featTitle:'Đặc điểm',
-  f1t:'Ánh sáng thực tế',f1d:'Pin có hạn; có thứ gì đó chuyển động trong bóng tối',
-  f2t:'Âm thanh 3D',f2d:'Chơi với tai nghe, tiếng bước chân tiết lộ vị trí',
-  f3t:'Câu đố',f3d:'Hơn 20 cơ chế, manh mối giấu trong hồ sơ và băng ghi âm',
-  f4t:'Nhiều kết thúc',f4d:'Mọi lựa chọn đều thay đổi sự thật cuối cùng',
-  f5t:'Đa nền tảng',f5d:'Chơi trên điện thoại hoặc PC với tiến trình đồng bộ',
-  shotTitle:'Hình ảnh',shot:'Ảnh chụp màn hình',
-  dlTitle:'Tải ngay',iosBtn:'Tải cho iOS',androidBtn:'Tải cho Android',winBtn:'Tải cho Windows',
-  soon:'Sắp ra mắt',ver:'Phiên bản mới nhất',
-  tip:'Trình cài đặt an toàn, có thể chơi ngoại tuyến<br>Liên hệ email chính thức để được hỗ trợ',
-  footer:'Bệnh Viện Kinh Hoàng · Trang Chính Thức'},
-
- id:{official:'SITUS RESMI',switchLang:'Bahasa',chooseLang:'Pilih bahasa',gameTitle:'Rumah Sakit Horor',
-  slogan:'Sesuatu telah menunggumu jauh<br>di dalam rumah sakit terbengkalai ini.',
-  tag1:'Horor',tag2:'Cerita',tag3:'Luring',tag4:'Gratis',
-  aboutTitle:'Tentang game',
-  aboutText:'Kamu adalah satpam malam terakhir di rumah sakit ini. Jam 2 pagi, lampu koridor mulai berkedip dan suara yang seharusnya tidak ada terdengar dari bangsal di ujung lorong. Temukan jalan keluar, tapi di balik setiap pintu mungkin bersembunyi sesuatu yang tidak boleh kamu lihat.',
-  featTitle:'Fitur',
-  f1t:'Pencahayaan realistis',f1d:'Baterai terbatas; ada sesuatu bergerak dalam gelap',
-  f2t:'Audio 3D',f2d:'Main dengan headphone, langkah kaki memberitahu posisinya',
-  f3t:'Teka-teki',f3d:'20+ mekanisme, petunjuk tersimpan di rekam medis',
-  f4t:'Multi ending',f4d:'Setiap pilihan mengubah kebenaran terakhir',
-  f5t:'Semua platform',f5d:'Main di HP atau PC dengan progres tersinkron',
-  shotTitle:'Tangkapan layar',shot:'Tangkapan layar',
-  dlTitle:'Unduh sekarang',iosBtn:'Unduh untuk iOS',androidBtn:'Unduh untuk Android',winBtn:'Unduh untuk Windows',
-  soon:'Segera hadir',ver:'Versi terbaru',
-  tip:'Pemasang aman, bisa dimainkan luring<br>Hubungi email resmi kami untuk bantuan',
-  footer:'Rumah Sakit Horor · Situs Resmi'},
-
- pl:{official:'STRONA OFICJALNA',switchLang:'Język',chooseLang:'Wybierz język',gameTitle:'Szpital Grozy',
-  slogan:'Coś czeka na ciebie w głębi<br>opuszczonego szpitala.',
-  tag1:'Horror',tag2:'Fabuła',tag3:'Offline',tag4:'Za darmo',
-  aboutTitle:'O grze',
-  aboutText:'Jesteś ostatnim nocnym strażnikiem tego szpitala. O drugiej w nocy światła na korytarzu zaczynają migotać, a z sali na końcu dobiega niemożliwy dźwięk. Znajdź wyjście, ale za każdymi drzwiami może kryć się coś, czego nie powinieneś widzieć.',
-  featTitle:'Cechy',
-  f1t:'Realistyczne światło',f1d:'Ograniczona bateria; coś porusza się w ciemności',
-  f2t:'Dźwięk 3D',f2d:'Graj w słuchawkach, kroki zdradzą położenie',
-  f3t:'Zagadki',f3d:'Ponad 20 mechanizmów, wskazówki w kartach i taśmach',
-  f4t:'Wiele zakończeń',f4d:'Każdy wybór zmienia ostateczną prawdę',
-  f5t:'Wszystkie platformy',f5d:'Graj na telefonie lub PC z synchronizacją',
-  shotTitle:'Zrzuty ekranu',shot:'Zrzut ekranu',
-  dlTitle:'Pobierz teraz',iosBtn:'Pobierz na iOS',androidBtn:'Pobierz na Android',winBtn:'Pobierz na Windows',
-  soon:'Wkrótce',ver:'Najnowsza wersja',
-  tip:'Bezpieczny instalator, grywalny offline<br>Kontakt pod oficjalnym e-mailem',
-  footer:'Szpital Grozy · Strona Oficjalna'},
-
- nl:{official:'OFFICIËLE SITE',switchLang:'Taal',chooseLang:'Kies een taal',gameTitle:'Horror Ziekenhuis',
-  slogan:'Iets wacht al lang op je in de diepte<br>van het verlaten ziekenhuis.',
-  tag1:'Horror',tag2:'Verhaal',tag3:'Offline',tag4:'Gratis',
-  aboutTitle:'Over het spel',
-  aboutText:'Jij bent de laatste nachtwaker van dit ziekenhuis. Om 2 uur \'s nachts beginnen de ganglichten te flikkeren en klinkt er een onmogelijk geluid uit de zaal aan het einde. Vind de uitgang, maar achter elke deur kan iets schuilen dat je niet zou mogen zien.',
-  featTitle:'Kenmerken',
-  f1t:'Realistisch licht',f1d:'Beperkte batterij; iets beweegt in het donker',
-  f2t:'3D-geluid',f2d:'Speel met oortjes, voetstappen verraden de plek',
-  f3t:'Puzzels',f3d:'20+ mechanismen, aanwijzingen in dossiers en banden',
-  f4t:'Meerdere eindes',f4d:'Elke keuze verandert de laatste waarheid',
-  f5t:'Alle platformen',f5d:'Speel op mobiel of pc met gesynchroniseerde voortgang',
-  shotTitle:'Schermafbeeldingen',shot:'Schermafbeelding',
-  dlTitle:'Nu downloaden',iosBtn:'Download voor iOS',androidBtn:'Download voor Android',winBtn:'Download voor Windows',
-  soon:'Binnenkort',ver:'Nieuwste versie',
-  tip:'Veilig installatieprogramma, offline speelbaar<br>Contact via ons officiële e-mailadres',
-  footer:'Horror Ziekenhuis · Officiële Site'},
-
- sv:{official:'OFFICIELL SIDA',switchLang:'Språk',chooseLang:'Välj språk',gameTitle:'Skräcksjukhuset',
-  slogan:'Något har väntat på dig i djupet<br>av det övergivna sjukhuset.',
-  tag1:'Skräck',tag2:'Berättelse',tag3:'Offline',tag4:'Gratis',
-  aboutTitle:'Om spelet',
-  aboutText:'Du är den sista nattvakten på det här sjukhuset. Klockan två på natten börjar korridorljuset flimra och ett omöjligt ljud hörs från salen i slutet av gången. Hitta utgången, men bakom varje dörr kan något gömma sig som du inte borde se.',
-  featTitle:'Funktioner',
-  f1t:'Realistiskt ljus',f1d:'Begränsat batteri; något rör sig i mörkret',
-  f2t:'3D-ljud',f2d:'Spela med hörlurar, stegen avslöjar var det är',
-  f3t:'Pussel',f3d:'Över 20 mekanismer, ledtrådar i journaler och band',
-  f4t:'Flera slut',f4d:'Varje val ändrar den sista sanningen',
-  f5t:'Alla plattformar',f5d:'Spela på mobil eller pc med synkad progression',
-  shotTitle:'Skärmbilder',shot:'Skärmbild',
-  dlTitle:'Ladda ner nu',iosBtn:'Ladda ner för iOS',androidBtn:'Ladda ner för Android',winBtn:'Ladda ner för Windows',
-  soon:'Kommer snart',ver:'Senaste versionen',
-  tip:'Säkert installationsprogram, spelbart offline<br>Kontakta vår officiella e-post för support',
-  footer:'Skräcksjukhuset · Officiell Sida'}
-};
-
-/* ===== 下载链接（大文件走 GitHub Releases，单文件上限 2GB） ===== */
-// 如果你绑了自定义域名（kongbu-game.cc.cd），把下面引号里填你的 GitHub 用户名；
-// 用 github.io 默认地址的话留空即可，会自动识别。
-const GITHUB_USER='';
-const RELEASE_TAG='v1.0';
-
-function ghUrl(file){
-  let u=GITHUB_USER;
-  if(!u){
-    const m=location.hostname.match(/^(.+?)\.github\.io$/);
-    if(m) u=m[1];
+const I18N = {
+  zh: {
+    official:"官方网站", title:"恐怖医院", subtitle:"在废弃医院中生存，揭开隐藏的真相",
+    tag1:"恐怖生存", tag2:"单人剧情", tag3:"离线可玩", tag4:"免费下载",
+    introTitle:"关于游戏", introText:"你在一所废弃的精神病院中醒来，黑暗中潜伏着未知的危险。探索、解谜、生存，揭开这家医院背后的黑暗实验。支持 Android 与 Windows 平台。",
+    downloadTitle:"选择平台下载"
+  },
+  en: {
+    official:"Official", title:"Horror Hospital", subtitle:"Survive the abandoned hospital. Uncover the truth.",
+    tag1:"Survival Horror", tag2:"Single Player", tag3:"Offline", tag4:"Free",
+    introTitle:"About", introText:"You wake up in an abandoned asylum. Danger lurks in the dark. Explore, solve puzzles, survive, and reveal the dark experiments behind this hospital. Available on Android & Windows.",
+    downloadTitle:"Download"
   }
-  if(!u) return file;               // 本地打开时退回同目录相对路径
-  return 'https://github.com/'+u+'/kongbu-game/releases/download/'+RELEASE_TAG+'/'+file;
-}
-
-const LINKS={
-  android:ghUrl('kongbu-game.apk'),
-  windows:ghUrl('kongbu-game.zip')
 };
 
-/* 截图（替换 src） */
-const SHOTS=[
-  {src:'',t:'大厅'},
-  {src:'',t:'走廊'},
-  {src:'',t:'病房'},
-  {src:'',t:'手术室'},
-  {src:'',t:'地下室'},
-  {src:'',t:'结局'}
-];
+const DIRECT_LINKS = {
+  android: "https://c.wss.ink/f/l952uv2zuat",
+  windows: "https://c.wss.ink/f/l951zvyd6kz"
+};
 
-let cur='zh';
+let currentLang = "zh";
 
-function renderShots(){
-  const box=document.getElementById('shots');
-  box.innerHTML=SHOTS.map((s,i)=>
-    `<div class="shot">${s.src?`<img src="${s.src}" style="width:100%;height:100%;object-fit:cover">`:
-    `<div class="n">🖼️</div><div class="t">${T[cur].shot} ${i+1} · ${s.t}</div>`}</div>`
-  ).join('');
-}
-
-function applyLang(c){
-  cur=c;
-  document.documentElement.lang=c;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const k=el.dataset.i18n;
-    if(T[c]&&T[c][k]!=null) el.innerHTML=T[c][k];
+function applyLang(lang) {
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (I18N[lang][key]) el.textContent = I18N[lang][key];
   });
-  document.title=(T[c].gameTitle||'')+' - '+(T[c].official||'');
-  document.documentElement.dir=(c==='ar')?'rtl':'ltr';
-  renderShots();
-  document.querySelectorAll('.lang-item').forEach(el=>{
-    el.classList.toggle('on',el.dataset.c===c);
+  document.querySelectorAll(".lang-switch button").forEach(b => {
+    b.classList.toggle("active", b.getAttribute("data-lang") === lang);
   });
-  try{localStorage.setItem('kongbu_lang',c)}catch(e){}
+  currentLang = lang;
 }
 
-function buildLangList(){
-  const box=document.getElementById('langList');
-  box.innerHTML=LANGS.map(l=>
-    `<div class="lang-item" data-c="${l.c}"><span>${l.f} ${l.n}</span>${
-      l.c===cur?'<span style="color:#ff8b8b">✓</span>':''}</div>`
-  ).join('');
-  box.querySelectorAll('.lang-item').forEach(el=>{
-    el.onclick=()=>{applyLang(el.dataset.c);closeSheet();buildLangList();};
-  });
-}
+document.querySelectorAll(".lang-switch button").forEach(btn => {
+  btn.addEventListener("click", () => applyLang(btn.getAttribute("data-lang")));
+});
 
-const mask=document.getElementById('mask'),sheet=document.getElementById('sheet');
-function openSheet(){mask.classList.add('show');sheet.classList.add('show');}
-function closeSheet(){mask.classList.remove('show');sheet.classList.remove('show');}
-document.getElementById('langBtn').onclick=openSheet;
-mask.onclick=closeSheet;
+document.getElementById("download-android").addEventListener("click", function (e) {
+  e.preventDefault();
+  window.open(DIRECT_LINKS.android, "_blank", "noopener");
+});
 
-/* 下载按钮 */
-document.getElementById('btnAndroid').href=LINKS.android;
-document.getElementById('btnWindows').href=LINKS.windows;
-document.querySelector('.btn.ios').onclick=e=>e.preventDefault();
+document.getElementById("download-windows").addEventListener("click", function (e) {
+  e.preventDefault();
+  window.open(DIRECT_LINKS.windows, "_blank", "noopener");
+});
 
-/* 初始化 */
-let saved='zh';
-try{saved=localStorage.getItem('kongbu_lang')||navigator.language.slice(0,2).toLowerCase()}catch(e){}
-if(!T[saved]){
-  const map={zh:'zh',cn:'zh',tw:'tw',en:'en',ko:'ko',ja:'ja',es:'es',fr:'fr',de:'de',
-    ru:'ru',pt:'pt',it:'it',tr:'tr',ar:'ar',hi:'hi',th:'th',vi:'vi',id:'id',pl:'pl',nl:'nl',sv:'sv'};
-  saved=map[saved]||'en';
-}
-buildLangList();
-applyLang(saved);
+document.getElementById("download-ios").addEventListener("click", function (e) {
+  e.preventDefault();
+  alert(currentLang === "zh" ? "iOS 版本暂未发布" : "iOS version not yet released");
+});
 </script>
 </body>
 </html>
