@@ -1,216 +1,296 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>恐怖の医院 - 官方の网站</title>
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --card: #1a1a1a;
-      --red: #8b0000;
-      --red-hover: #a50000;
-      --text: #e0e0e0;
-      --sub: #888;
-      --border: #333;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding-top: 60px;
-    }
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 60px;
-      background: rgba(10,10,10,0.95);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 15px;
-      z-index: 1000;
-      backdrop-filter: blur(5px);
-    }
-    .nav-left { display: flex; align-items: center; }
-    .logo-text { font-size: 20px; font-weight: bold; letter-spacing: 2px; }
-    .logo-mark {
-      width: 32px; height: 32px; margin-left: 8px;
-      background: linear-gradient(135deg, var(--red), #2a0000);
-      border: 1px solid #ff4444; border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; font-weight: bold; color: #fff;
-      box-shadow: 0 0 8px rgba(139,0,0,0.5);
-    }
-    .menu-btn {
-      width: 40px; height: 40px; background: none; border: none;
-      color: #fff; font-size: 24px; cursor: pointer;
-    }
-    .menu-panel {
-      position: fixed; top: 60px; right: -200px;
-      width: 180px; background: #111;
-      border-left: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      transition: right 0.3s ease; z-index: 999;
-    }
-    .menu-panel.open { right: 0; }
-    .menu-item {
-      display: block; padding: 15px 20px; color: var(--text);
-      text-decoration: none; border-bottom: 1px solid #222; font-size: 16px;
-    }
-    .menu-item:active, .menu-item.active { background: var(--red); color: #fff; }
-    .section { padding: 50px 20px; border-bottom: 1px solid #1a1a1a; }
-    h2 { color: #fff; font-size: 22px; margin-bottom: 20px; border-left: 4px solid var(--red); padding-left: 10px; }
-    .container { max-width: 800px; margin: 0 auto; }
-    .hero { text-align: center; padding: 80px 20px; }
-    .hero h1 { font-size: 36px; margin-bottom: 10px; letter-spacing: 4px; }
-    .hero p { color: var(--sub); }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
-    .card {
-      background: var(--card); border: 1px solid var(--border);
-      padding: 20px; border-radius: 8px; text-align: center;
-    }
-    .card span { font-size: 28px; display: block; margin-bottom: 10px; }
-    .shots { display: grid; grid-template-columns: 1fr; gap: 20px; }
-    .shot-block {
-      height: 220px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      color: #aaa; font-size: 18px; letter-spacing: 2px;
-      border: 1px solid #333; text-align: center; padding: 20px;
-    }
-    .shot-1 { background: #1a0505; color: #cc5555; }
-    .shot-2 { background: #050510; color: #557799; }
-    .shot-3 { background: #100505; color: #aa4444; }
-    .shot-4 { background: #051005; color: #55aa55; }
-    .dl-box {
-      background: var(--card); padding: 30px; border-radius: 10px;
-      text-align: center; border: 1px solid var(--border);
-    }
-    .btn {
-      display: block; width: 100%; padding: 15px; margin: 10px 0;
-      border-radius: 8px; background: var(--red); color: #fff;
-      font-size: 17px; font-weight: bold; border: none; cursor: pointer;
-    }
-    .btn:active { background: var(--red-hover); }
-    .update-tip { margin-top: 15px; font-size: 14px; color: #ff8888; display: none; }
-    .dl-note { color: var(--sub); font-size: 12px; margin-top: 8px; }
-    footer { padding: 40px 20px; text-align: center; color: var(--sub); font-size: 14px; background: #050505; }
-    footer .bilibili { color: #ff6699; font-weight: bold; margin-bottom: 10px; display: block; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>恐怖医院 - 官方网站</title>
+<style>
+:root{--bg:#f2f2f2;--card:#fff;--border:#ccc;--text:#222;--sub:#777}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding-top:60px;overflow-x:hidden}
+
+/* 导航 */
+.nav{position:fixed;top:0;left:0;right:0;height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 15px;z-index:1000}
+.nav-left{display:flex;align-items:center}
+.logo-text{font-size:20px;font-weight:bold;letter-spacing:2px}
+.logo-mark{width:32px;height:32px;margin-left:8px;background:#333;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold}
+.trademark{width:22px;height:22px;margin-left:6px;position:relative;flex-shrink:0}
+.trademark::before{content:'';position:absolute;top:2px;left:0;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:16px solid #333}
+.trademark::after{content:'';position:absolute;bottom:1px;left:6px;width:10px;height:2px;background:#333;transform:rotate(-35deg);transform-origin:left center}
+.menu-btn{width:40px;height:40px;background:none;border:none;font-size:24px;cursor:pointer;color:#111}
+.menu-panel{position:fixed;top:60px;right:-200px;width:180px;background:#fff;border-left:1px solid var(--border);border-bottom:1px solid var(--border);transition:right .3s;z-index:999}
+.menu-panel.open{right:0}
+.menu-item{display:block;padding:15px 20px;color:var(--text);text-decoration:none;border-bottom:1px solid #eee;font-size:16px}
+.menu-item:active,.menu-item.active{background:#333;color:#fff}
+
+/* 人机验证遮罩 */
+.captcha-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#f2f2f2;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.spinner{width:48px;height:48px;border:4px solid #ccc;border-top-color:#333;animation:spin 1s linear infinite;margin:0 auto 16px}
+.spinner.stopped{animation:none;border-color:#333}
+@keyframes spin{to{transform:rotate(360deg)}}
+.captcha-text{font-size:16px;color:#333;margin-bottom:20px;min-height:24px}
+.checkbox-row{display:none;align-items:center;justify-content:center;gap:12px;margin-top:16px}
+.checkbox-box{width:28px;height:28px;border:2px solid #333;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:#333}
+.checkbox-box.checked{background:#333;color:#fff}
+
+/* 登录弹窗 */
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1500;display:none;align-items:center;justify-content:center}
+.login-overlay.open{display:flex}
+.login-modal{background:#fff;border:1px solid var(--border);width:90%;max-width:380px;padding:0}
+.login-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.login-header h3{font-size:18px;font-weight:bold}
+.login-close{width:32px;height:32px;background:none;border:1px solid #333;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.login-body{padding:20px}
+.login-body label{display:block;font-size:14px;color:#555;margin-bottom:6px;margin-top:14px}
+.login-body input{width:100%;padding:12px;border:1px solid #333;background:#fff;font-size:16px;outline:none}
+.login-body input:focus{border-color:#111;background:#fafafa}
+.login-submit{display:block;width:100%;padding:14px;margin-top:24px;background:#333;color:#fff;font-size:16px;font-weight:bold;border:none;cursor:pointer}
+.login-submit:active{background:#111}
+
+/* 个人页 */
+.profile-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#f2f2f2;z-index:1400;display:none;flex-direction:column}
+.profile-overlay.open{display:flex}
+.profile-header{height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 15px}
+.profile-back{width:40px;height:40px;background:none;border:1px solid #333;font-size:16px;cursor:pointer;margin-right:12px}
+.profile-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.avatar{width:80px;height:80px;background:#333;color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold;margin-bottom:20px}
+.profile-name{font-size:20px;font-weight:bold;margin-bottom:6px}
+.profile-email{font-size:14px;color:var(--sub);margin-bottom:40px}
+.profile-btn{display:block;width:200px;padding:14px;background:#fff;color:#111;font-size:16px;font-weight:bold;border:2px solid #333;cursor:pointer;text-align:center}
+.profile-btn:active{background:#333;color:#fff}
+
+/* 主内容 */
+.section{padding:50px 20px;border-bottom:1px solid #ddd}
+h2{color:#111;font-size:22px;margin-bottom:20px;border-left:4px solid #333;padding-left:10px}
+.container{max-width:800px;margin:0 auto}
+.hero{text-align:center;padding:80px 20px;background:#eaeaea}
+.hero h1{font-size:36px;letter-spacing:4px}.hero p{color:var(--sub)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:15px}
+.card{background:#fff;border:1px solid var(--border);padding:20px;text-align:center}
+.card span{font-size:28px;display:block;margin-bottom:10px}
+.shots{display:grid;grid-template-columns:1fr;gap:20px}
+.shot-block{border:1px solid #bbb;background:#fff}
+.shot-block img{width:100%;display:block}
+.shot-label{padding:8px 12px;font-size:13px;color:var(--sub);background:#f9f9f9;border-top:1px solid #eee;text-align:center}
+.dl-box{background:#fff;padding:30px;border:1px solid var(--border);text-align:center}
+.btn{display:block;width:100%;padding:15px;margin:10px 0;background:#fff;color:#111;font-size:17px;font-weight:bold;border:2px solid #333;text-decoration:none;cursor:pointer}
+.btn:active{background:#333;color:#fff}
+.update-tip{margin-top:15px;font-size:14px;color:#333;display:none}
+.dl-note{color:var(--sub);font-size:12px;margin-top:8px}
+footer{padding:40px 20px;text-align:center;color:var(--sub);font-size:14px;background:#eaeaea;border-top:1px solid #ddd}
+footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
+</style>
 </head>
 <body>
 
-  <nav class="nav">
-    <div class="nav-left">
-      <span class="logo-text">恐怖医院</span>
-      <div class="logo-mark">医</div>
-    </div>
-    <button class="menu-btn" id="menuBtn">☰</button>
-  </nav>
-
-  <div class="menu-panel" id="menuPanel">
-    <a href="#home" class="menu-item" onclick="toggleMenu()">主页</a>
-    <a href="#intro" class="menu-item" onclick="toggleMenu()">介绍</a>
-    <a href="#shots" class="menu-item" onclick="toggleMenu()">截图</a>
-    <a href="#download" class="menu-item" onclick="toggleMenu()">下载</a>
+<!-- 人机验证 -->
+<div class="captcha-overlay" id="captchaOverlay">
+  <div class="spinner" id="spinner"></div>
+  <div class="captcha-text" id="captchaText">人机验证中</div>
+  <div class="checkbox-row" id="checkboxRow">
+    <div class="checkbox-box" id="checkboxBox"></div>
+    <span>请点击方框以验证</span>
   </div>
+</div>
 
-  <section class="section hero" id="home">
-    <div class="container">
-      <h1>恐怖医院</h1>
-      <p>v1.0.6 · 探索未知的深夜病房</p>
+<!-- 登录弹窗 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-modal">
+    <div class="login-header">
+      <h3>请登录账号</h3>
+      <button class="login-close" id="loginClose">X</button>
     </div>
-  </section>
-
-  <section class="section" id="intro">
-    <div class="container">
-      <h2>游戏介绍</h2>
-      <p>《恐怖医院》是一款独立制作的悬疑惊悚游戏。玩家将深入一座被废弃的诡异医院，寻找真相，面对内心的恐惧。剧情包含多结局分支，你的每一次选择都至关重要。</p>
+    <div class="login-body">
+      <label for="loginName">名称</label>
+      <input type="text" id="loginName" placeholder="输入你的名称" autocomplete="name">
+      <label for="loginEmail">邮箱</label>
+      <input type="email" id="loginEmail" placeholder="输入你的邮箱" autocomplete="email">
+      <label for="loginPass">密码</label>
+      <input type="password" id="loginPass" placeholder="设置密码" autocomplete="new-password">
+      <button class="login-submit" id="loginSubmit">确定</button>
     </div>
-  </section>
+  </div>
+</div>
 
-  <section class="section" id="play">
-    <div class="container">
-      <h2>游戏玩法</h2>
-      <div class="cards">
-        <div class="card"><span>🔍</span>探索</div>
-        <div class="card"><span>🧩</span>解谜</div>
-        <div class="card"><span>🏃</span>生存</div>
-        <div class="card"><span>⚖️</span>抉择</div>
-        <div class="card"><span>📜</span>收集</div>
-        <div class="card"><span>🎭</span>沉浸</div>
-      </div>
-    </div>
-  </section>
+<!-- 个人页 -->
+<div class="profile-overlay" id="profileOverlay">
+  <div class="profile-header">
+    <button class="profile-back" id="profileBack">&lt;</button>
+    <span style="font-size:18px;font-weight:bold">我的</span>
+  </div>
+  <div class="profile-content">
+    <div class="avatar" id="avatarLetter">?</div>
+    <div class="profile-name" id="profileName">未登录</div>
+    <div class="profile-email" id="profileEmail"></div>
+    <button class="profile-btn" id="profileAction">登录</button>
+  </div>
+</div>
 
-  <section class="section" id="shots">
-    <div class="container">
-      <h2>游戏截图</h2>
-      <div class="shots">
-        <div class="shot-block shot-1">标题画面占位<br>(暗红调)</div>
-        <div class="shot-block shot-2">医院长廊占位<br>(幽蓝调)</div>
-        <div class="shot-block shot-3">「我不是最后一个」<br>(剧情文本占位)</div>
-        <div class="shot-block shot-4">TRUE END 2<br>(深绿调)</div>
-      </div>
-    </div>
-  </section>
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-left">
+    <span class="logo-text">恐怖医院</span>
+    <div class="logo-mark">医</div>
+    <div class="trademark"></div>
+  </div>
+  <button class="menu-btn" id="menuBtn">=</button>
+</nav>
+<div class="menu-panel" id="menuPanel">
+  <a href="#home" class="menu-item" onclick="toggleMenu()">主页</a>
+  <a href="#intro" class="menu-item" onclick="toggleMenu()">介绍</a>
+  <a href="#shots" class="menu-item" onclick="toggleMenu()">截图</a>
+  <a href="#download" class="menu-item" onclick="toggleMenu()">下载</a>
+  <a href="#" class="menu-item" id="menuMy">我的</a>
+</div>
 
-  <section class="section" id="download">
-    <div class="container">
-      <h2>下载游戏</h2>
-      <div class="dl-box">
-        <div class="update-tip" id="updateTip"></div>
+<!-- 主页 -->
+<section class="section hero" id="home"><div class="container"><h1>恐怖医院</h1><p>v1.0.6 · 探索未知的深夜病房</p></div></section>
 
-        <!-- 直接用官方固定直链，不切镜像 -->
-        <a class="btn" href="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk" target="_blank" rel="noopener">🔧 下载安卓版 (APK)</a>
-        <a class="btn" href="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip" target="_blank" rel="noopener">🔧 下载电脑版 (Windows)</a>
+<section class="section" id="intro"><div class="container"><h2>游戏介绍</h2><p>《恐怖医院》是一款独立制作的悬疑惊悚游戏。玩家将深入一座被废弃的诡异医院，寻找真相，面对内心的恐惧。剧情包含多结局分支，你的每一次选择都至关重要。</p></div></section>
 
-        <p class="dl-note">下载源：GitHub 官方原链（稳定优先，不自动切换）</p>
-      </div>
-    </div>
-  </section>
+<section class="section" id="play"><div class="container"><h2>游戏玩法</h2>
+<div class="cards">
+<div class="card"><span>S</span>探索</div><div class="card"><span>P</span>解谜</div>
+<div class="card"><span>R</span>生存</div><div class="card"><span>C</span>抉择</div>
+<div class="card"><span>L</span>收集</div><div class="card"><span>I</span>沉浸</div>
+</div></div></section>
 
-  <footer>
-    <span class="bilibili">B站账号：奶油不吃糖果 个人版权，禁止抄袭、转载与二创</span>
-    <div>官方网页：kongbu-game.cc.cd</div>
-  </footer>
+<section class="section" id="shots"><div class="container"><h2>游戏截图</h2>
+<div class="shots">
+<div class="shot-block"><img src="https://i.imghippo.com/files/DZBz2033KPg.jpg" alt="标题画面"><div class="shot-label">标题画面</div></div>
+<div class="shot-block"><img src="https://i.imghippo.com/files/DYHt3563duI.jpg" alt="医院长廊"><div class="shot-label">医院长廊</div></div>
+<div class="shot-block"><img src="https://i.imghippo.com/files/pPP2762FGg.jpg" alt="剧情文本"><div class="shot-label">剧情文本</div></div>
+<div class="shot-block"><img src="https://i.imghippo.com/files/qN4765qo.jpg" alt="TRUE END 2"><div class="shot-label">TRUE END 2</div></div>
+</div></div></section>
 
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const menuPanel = document.getElementById('menuPanel');
-    function toggleMenu() {
-      menuPanel.classList.toggle('open');
-      menuBtn.innerHTML = menuPanel.classList.contains('open') ? '✕' : '☰';
-    }
-    menuBtn.addEventListener('click', toggleMenu);
+<section class="section" id="download"><div class="container"><h2>下载游戏</h2>
+<div class="dl-box">
+<div class="update-tip" id="updateTip"></div>
+<a class="btn" href="https://ghproxy.net/https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk" target="_blank" rel="noopener">下载安卓版 APK</a>
+<a class="btn" href="https://ghproxy.net/https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip" target="_blank" rel="noopener">下载电脑版 Windows</a>
+<p class="dl-note">下载源：镜像加速通道</p>
+</div></div></section>
 
-    // 检查更新（只读版本号，不拦截下载）
-    fetch('version.json')
-      .then(res => res.json())
-      .then(data => {
-        const tip = document.getElementById('updateTip');
-        tip.style.display = 'block';
-        tip.innerText = `当前最新版本：${data.android_version} | ${data.changelog}`;
-      })
-      .catch(() => {});
+<footer><span class="bilibili">B站账号：奶油不吃糖果 个人版权，禁止抄袭、转载与二创</span><div>官方网页：kongbu-game.cc.cd</div></footer>
 
-    // 滚动高亮菜单
-    const sections = document.querySelectorAll('.section, .hero');
-    const menuItems = document.querySelectorAll('.menu-item');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(sec => {
-        const top = sec.offsetTop - 70;
-        if (window.scrollY >= top) current = sec.getAttribute('id');
-      });
-      menuItems.forEach(item => {
-        item.classList.remove('active');
-        if (item.getAttribute('href') === '#' + current) item.classList.add('active');
-      });
-    });
-  </script>
+<script>
+// 登录态本地存储
+const STORE_KEY='kongbu_user';
+function loadUser(){
+  try{return JSON.parse(localStorage.getItem(STORE_KEY));}catch(e){return null;}
+}
+function saveUser(u){localStorage.setItem(STORE_KEY,JSON.stringify(u));}
+function clearUser(){localStorage.removeItem(STORE_KEY);}
+
+let user=loadUser();
+
+// 人机验证
+const captchaOverlay=document.getElementById('captchaOverlay');
+const spinner=document.getElementById('spinner');
+const captchaText=document.getElementById('captchaText');
+const checkboxRow=document.getElementById('checkboxRow');
+const checkboxBox=document.getElementById('checkboxBox');
+let verified=false;
+
+setTimeout(()=>{
+  spinner.classList.add('stopped');
+  captchaText.innerText='';
+  checkboxRow.style.display='flex';
+},6000);
+
+checkboxBox.addEventListener('click',()=>{
+  if(verified)return;
+  verified=true;
+  checkboxBox.classList.add('checked');
+  checkboxBox.innerHTML='&#10003;';
+  captchaText.innerText='正在加载';
+  spinner.classList.remove('stopped');
+  spinner.style.animation='spin 1s linear infinite';
+  setTimeout(()=>{
+    captchaOverlay.style.display='none';
+    // 首次进来不强制登录，直接进主页
+  },3000);
+});
+
+// 弹窗控制
+const loginOverlay=document.getElementById('loginOverlay');
+const loginClose=document.getElementById('loginClose');
+const loginSubmit=document.getElementById('loginSubmit');
+const profileOverlay=document.getElementById('profileOverlay');
+const profileBack=document.getElementById('profileBack');
+const profileAction=document.getElementById('profileAction');
+const avatarLetter=document.getElementById('avatarLetter');
+const profileName=document.getElementById('profileName');
+const profileEmail=document.getElementById('profileEmail');
+
+function openLogin(){loginOverlay.classList.add('open');}
+function closeLogin(){loginOverlay.classList.remove('open');}
+
+loginClose.addEventListener('click',closeLogin);
+
+loginSubmit.addEventListener('click',()=>{
+  const name=document.getElementById('loginName').value.trim();
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPass').value.trim();
+  if(!name||!email||!pass){alert('请填写完整信息');return;}
+  user={name,email,initial:name.charAt(0).toUpperCase()};
+  saveUser(user);
+  document.getElementById('loginName').value='';
+  document.getElementById('loginEmail').value='';
+  document.getElementById('loginPass').value='';
+  closeLogin();
+  renderProfile();
+});
+
+// 个人页渲染
+function renderProfile(){
+  if(user){
+    avatarLetter.innerText=user.initial||'?';
+    profileName.innerText=user.name;
+    profileEmail.innerText=user.email;
+    profileAction.innerText='退出登录';
+  }else{
+    avatarLetter.innerText='?';
+    profileName.innerText='未登录';
+    profileEmail.innerText='';
+    profileAction.innerText='登录';
+  }
+}
+
+// 个人页按钮：登录 / 退出
+profileAction.addEventListener('click',()=>{
+  if(user){
+    user=null;clearUser();
+    renderProfile();
+    profileOverlay.classList.remove('open');
+  }else{
+    openLogin();
+  }
+});
+
+// 菜单我的
+document.getElementById('menuMy').addEventListener('click',(e)=>{
+  e.preventDefault();
+  toggleMenu();
+  renderProfile();
+  profileOverlay.classList.add('open');
+});
+
+profileBack.addEventListener('click',()=>{
+  profileOverlay.classList.remove('open');
+});
+
+// 菜单
+const menuBtn=document.getElementById('menuBtn'),menuPanel=document.getElementById('menuPanel');
+function toggleMenu(){menuPanel.classList.toggle('open');menuBtn.innerHTML=menuPanel.classList.contains('open')?'X':'='}
+menuBtn.addEventListener('click',toggleMenu);
+
+// 版本
+fetch('version.json').then(r=>r.json()).then(d=>{const t=document.getElementById('updateTip');t.style.display='block';t.innerText='当前最新版本：'+d.android_version+' | '+d.changelog}).catch(()=>{});
+
+// 滚动高亮
+const secs=document.querySelectorAll('.section,.hero'),items=document.querySelectorAll('.menu-item');
+window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-70)c=s.id});items.forEach(i=>{i.classList.remove('active');if(i.getAttribute('href')==='#'+c)i.classList.add('active')})});
+</script>
 </body>
 </html>
