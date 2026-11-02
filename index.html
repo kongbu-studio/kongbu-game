@@ -9,7 +9,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding-top:60px;overflow-x:hidden}
 
-/* 导航 */
 .nav{position:fixed;top:0;left:0;right:0;height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 15px;z-index:1000}
 .nav-left{display:flex;align-items:center}
 .logo-text{font-size:20px;font-weight:bold;letter-spacing:2px}
@@ -23,7 +22,6 @@ body{font-family:sans-serif;background:var(--bg);color:var(--text);line-height:1
 .menu-item{display:block;padding:15px 20px;color:var(--text);text-decoration:none;border-bottom:1px solid #eee;font-size:16px}
 .menu-item:active,.menu-item.active{background:#333;color:#fff}
 
-/* 人机验证遮罩 */
 .captcha-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#f2f2f2;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .spinner{width:48px;height:48px;border:4px solid #ccc;border-top-color:#333;animation:spin 1s linear infinite;margin:0 auto 16px}
 .spinner.stopped{animation:none;border-color:#333}
@@ -33,7 +31,6 @@ body{font-family:sans-serif;background:var(--bg);color:var(--text);line-height:1
 .checkbox-box{width:28px;height:28px;border:2px solid #333;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:#333}
 .checkbox-box.checked{background:#333;color:#fff}
 
-/* 登录弹窗 */
 .login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1500;display:none;align-items:center;justify-content:center}
 .login-overlay.open{display:flex}
 .login-modal{background:#fff;border:1px solid var(--border);width:90%;max-width:380px;padding:0}
@@ -47,7 +44,6 @@ body{font-family:sans-serif;background:var(--bg);color:var(--text);line-height:1
 .login-submit{display:block;width:100%;padding:14px;margin-top:24px;background:#333;color:#fff;font-size:16px;font-weight:bold;border:none;cursor:pointer}
 .login-submit:active{background:#111}
 
-/* 个人页 */
 .profile-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#f2f2f2;z-index:1400;display:none;flex-direction:column}
 .profile-overlay.open{display:flex}
 .profile-header{height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 15px}
@@ -59,7 +55,6 @@ body{font-family:sans-serif;background:var(--bg);color:var(--text);line-height:1
 .profile-btn{display:block;width:200px;padding:14px;background:#fff;color:#111;font-size:16px;font-weight:bold;border:2px solid #333;cursor:pointer;text-align:center}
 .profile-btn:active{background:#333;color:#fff}
 
-/* 主内容 */
 .section{padding:50px 20px;border-bottom:1px solid #ddd}
 h2{color:#111;font-size:22px;margin-bottom:20px;border-left:4px solid #333;padding-left:10px}
 .container{max-width:800px;margin:0 auto}
@@ -75,6 +70,8 @@ h2{color:#111;font-size:22px;margin-bottom:20px;border-left:4px solid #333;paddi
 .dl-box{background:#fff;padding:30px;border:1px solid var(--border);text-align:center}
 .btn{display:block;width:100%;padding:15px;margin:10px 0;background:#fff;color:#111;font-size:17px;font-weight:bold;border:2px solid #333;text-decoration:none;cursor:pointer}
 .btn:active{background:#333;color:#fff}
+.mirror-tip{font-size:12px;color:#555;margin:6px 0 14px;cursor:pointer;text-decoration:underline}
+.mirror-state{font-size:12px;color:#333;margin-bottom:10px}
 .update-tip{margin-top:15px;font-size:14px;color:#333;display:none}
 .dl-note{color:var(--sub);font-size:12px;margin-top:8px}
 footer{padding:40px 20px;text-align:center;color:var(--sub);font-size:14px;background:#eaeaea;border-top:1px solid #ddd}
@@ -165,24 +162,64 @@ footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
 
 <section class="section" id="download"><div class="container"><h2>下载游戏</h2>
 <div class="dl-box">
+<div class="mirror-state" id="mirrorState">当前：官方源下载</div>
+<a class="btn" id="dlApk">下载安卓版 APK</a>
+<a class="btn" id="dlPc">下载电脑版 Windows</a>
+<div class="mirror-tip" id="mirrorTip">备选镜像下载（点这里切换镜像源）</div>
 <div class="update-tip" id="updateTip"></div>
-<a class="btn" href="https://ghproxy.net/https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk" target="_blank" rel="noopener">下载安卓版 APK</a>
-<a class="btn" href="https://ghproxy.net/https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip" target="_blank" rel="noopener">下载电脑版 Windows</a>
-<p class="dl-note">下载源：镜像加速通道</p>
+<p class="dl-note">默认走 GitHub 官方源，点小字后走镜像加速</p>
 </div></div></section>
 
 <footer><span class="bilibili">B站账号：奶油不吃糖果 个人版权，禁止抄袭、转载与二创</span><div>官方网页：kongbu-game.cc.cd</div></footer>
 
 <script>
-// 登录态本地存储
-const STORE_KEY='kongbu_user';
-function loadUser(){
-  try{return JSON.parse(localStorage.getItem(STORE_KEY));}catch(e){return null;}
-}
-function saveUser(u){localStorage.setItem(STORE_KEY,JSON.stringify(u));}
-function clearUser(){localStorage.removeItem(STORE_KEY);}
+// 基础路径
+const RAW_APK="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk";
+const RAW_PC="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip";
+const MIRROR_POOL=[
+  "https://mirror.ghproxy.com/",
+  "https://ghfast.top/",
+  "https://gh.llkk.cc/"
+];
 
-let user=loadUser();
+// 镜像开关（本地记忆）
+let useMirror=false;
+try{useMirror=localStorage.getItem('kongbu_mirror')==='1';}catch(e){}
+const mirrorState=document.getElementById('mirrorState');
+const mirrorTip=document.getElementById('mirrorTip');
+
+function syncMirrorUI(){
+  mirrorState.innerText=useMirror?'当前：镜像加速下载':'当前：官方源下载';
+  mirrorTip.innerText=useMirror?'已切换镜像源（点这里切回官方源）':'备选镜像下载（点这里切换镜像源）';
+}
+syncMirrorUI();
+
+mirrorTip.addEventListener('click',()=>{
+  useMirror=!useMirror;
+  try{localStorage.setItem('kongbu_mirror',useMirror?'1':'0');}catch(e){}
+  syncMirrorUI();
+});
+
+function pickMirrorUrl(raw){
+  if(!useMirror)return raw;
+  // 默认优先第一个，挂了用户再点小字切回官方
+  return MIRROR_POOL[0]+raw;
+}
+
+document.getElementById('dlApk').addEventListener('click',()=>{
+  const a=document.createElement('a');
+  a.href=pickMirrorUrl(RAW_APK);
+  a.download='';
+  a.rel='noopener';
+  a.click();
+});
+document.getElementById('dlPc').addEventListener('click',()=>{
+  const a=document.createElement('a');
+  a.href=pickMirrorUrl(RAW_PC);
+  a.download='';
+  a.rel='noopener';
+  a.click();
+});
 
 // 人机验证
 const captchaOverlay=document.getElementById('captchaOverlay');
@@ -191,13 +228,11 @@ const captchaText=document.getElementById('captchaText');
 const checkboxRow=document.getElementById('checkboxRow');
 const checkboxBox=document.getElementById('checkboxBox');
 let verified=false;
-
 setTimeout(()=>{
   spinner.classList.add('stopped');
   captchaText.innerText='';
   checkboxRow.style.display='flex';
 },6000);
-
 checkboxBox.addEventListener('click',()=>{
   if(verified)return;
   verified=true;
@@ -206,13 +241,16 @@ checkboxBox.addEventListener('click',()=>{
   captchaText.innerText='正在加载';
   spinner.classList.remove('stopped');
   spinner.style.animation='spin 1s linear infinite';
-  setTimeout(()=>{
-    captchaOverlay.style.display='none';
-    // 首次进来不强制登录，直接进主页
-  },3000);
+  setTimeout(()=>{captchaOverlay.style.display='none';},3000);
 });
 
-// 弹窗控制
+// 登录
+const STORE_KEY='kongbu_user';
+function loadUser(){try{return JSON.parse(localStorage.getItem(STORE_KEY));}catch(e){return null;}}
+function saveUser(u){localStorage.setItem(STORE_KEY,JSON.stringify(u));}
+function clearUser(){localStorage.removeItem(STORE_KEY);}
+let user=loadUser();
+
 const loginOverlay=document.getElementById('loginOverlay');
 const loginClose=document.getElementById('loginClose');
 const loginSubmit=document.getElementById('loginSubmit');
@@ -223,11 +261,7 @@ const avatarLetter=document.getElementById('avatarLetter');
 const profileName=document.getElementById('profileName');
 const profileEmail=document.getElementById('profileEmail');
 
-function openLogin(){loginOverlay.classList.add('open');}
-function closeLogin(){loginOverlay.classList.remove('open');}
-
-loginClose.addEventListener('click',closeLogin);
-
+loginClose.addEventListener('click',()=>loginOverlay.classList.remove('open'));
 loginSubmit.addEventListener('click',()=>{
   const name=document.getElementById('loginName').value.trim();
   const email=document.getElementById('loginEmail').value.trim();
@@ -238,11 +272,9 @@ loginSubmit.addEventListener('click',()=>{
   document.getElementById('loginName').value='';
   document.getElementById('loginEmail').value='';
   document.getElementById('loginPass').value='';
-  closeLogin();
+  loginOverlay.classList.remove('open');
   renderProfile();
 });
-
-// 个人页渲染
 function renderProfile(){
   if(user){
     avatarLetter.innerText=user.initial||'?';
@@ -256,29 +288,14 @@ function renderProfile(){
     profileAction.innerText='登录';
   }
 }
-
-// 个人页按钮：登录 / 退出
 profileAction.addEventListener('click',()=>{
-  if(user){
-    user=null;clearUser();
-    renderProfile();
-    profileOverlay.classList.remove('open');
-  }else{
-    openLogin();
-  }
+  if(user){user=null;clearUser();renderProfile();profileOverlay.classList.remove('open');}
+  else{loginOverlay.classList.add('open');}
 });
-
-// 菜单我的
 document.getElementById('menuMy').addEventListener('click',(e)=>{
-  e.preventDefault();
-  toggleMenu();
-  renderProfile();
-  profileOverlay.classList.add('open');
+  e.preventDefault();toggleMenu();renderProfile();profileOverlay.classList.add('open');
 });
-
-profileBack.addEventListener('click',()=>{
-  profileOverlay.classList.remove('open');
-});
+profileBack.addEventListener('click',()=>profileOverlay.classList.remove('open'));
 
 // 菜单
 const menuBtn=document.getElementById('menuBtn'),menuPanel=document.getElementById('menuPanel');
