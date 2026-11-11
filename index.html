@@ -55,6 +55,17 @@ body{font-family:sans-serif;background:var(--bg);color:var(--text);line-height:1
 .profile-btn{display:block;width:200px;padding:14px;background:#fff;color:#111;font-size:16px;font-weight:bold;border:2px solid #333;cursor:pointer;text-align:center}
 .profile-btn:active{background:#333;color:#fff}
 
+.maint-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#f2f2f2;z-index:1800;display:none;align-items:center;justify-content:center}
+.maint-overlay.open{display:flex}
+.maint-box{background:#fff;border:1px solid #333;width:88%;max-width:360px;padding:34px 20px;text-align:center}
+.maint-title{font-size:18px;font-weight:bold;margin-bottom:22px;letter-spacing:1px}
+.maint-spin{width:46px;height:46px;border:4px solid #ccc;border-top-color:#333;animation:spin 1s linear infinite;margin:0 auto 18px}
+.maint-sub{font-size:14px;color:#333;min-height:22px}
+.maint-tip{position:fixed;left:0;bottom:0;padding:10px 14px;font-size:13px;color:#333;background:#fff;border-top:1px solid var(--border);border-right:1px solid var(--border);max-width:100%;z-index:1801;display:none}
+.maint-tip.open{display:block}
+.maint-tip b{font-weight:bold}
+.maint-tip span{color:#555}
+
 .section{padding:50px 20px;border-bottom:1px solid #ddd}
 h2{color:#111;font-size:22px;margin-bottom:20px;border-left:4px solid #333;padding-left:10px}
 .container{max-width:800px;margin:0 auto}
@@ -70,9 +81,6 @@ h2{color:#111;font-size:22px;margin-bottom:20px;border-left:4px solid #333;paddi
 .dl-box{background:#fff;padding:30px;border:1px solid var(--border);text-align:center}
 .btn{display:block;width:100%;padding:15px;margin:10px 0;background:#fff;color:#111;font-size:17px;font-weight:bold;border:2px solid #333;text-decoration:none;cursor:pointer}
 .btn:active{background:#333;color:#fff}
-.mirror-tip{font-size:12px;color:#555;margin:6px 0 14px;cursor:pointer;text-decoration:underline}
-.mirror-state{font-size:12px;color:#333;margin-bottom:10px}
-.update-tip{margin-top:15px;font-size:14px;color:#333;display:none}
 .dl-note{color:var(--sub);font-size:12px;margin-top:8px}
 footer{padding:40px 20px;text-align:center;color:var(--sub);font-size:14px;background:#eaeaea;border-top:1px solid #ddd}
 footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
@@ -89,6 +97,16 @@ footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
     <span>请点击方框以验证</span>
   </div>
 </div>
+
+<!-- 维修中弹窗 -->
+<div class="maint-overlay" id="maintOverlay">
+  <div class="maint-box">
+    <div class="maint-title">加载中</div>
+    <div class="maint-spin"></div>
+    <div class="maint-sub" id="maintSub">正在重新连接服务器… 0 / 5 秒</div>
+  </div>
+</div>
+<div class="maint-tip" id="maintTip"><b>小贴士：</b><span id="maintTipText"></span></div>
 
 <!-- 登录弹窗 -->
 <div class="login-overlay" id="loginOverlay">
@@ -141,7 +159,7 @@ footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
 </div>
 
 <!-- 主页 -->
-<section class="section hero" id="home"><div class="container"><h1>恐怖医院</h1><p>v1.0.6 · 探索未知的深夜病房</p></div></section>
+<section class="section hero" id="home"><div class="container"><h1>恐怖医院</h1><p>v1.1.6 · 探索未知的深夜病房</p></div></section>
 
 <section class="section" id="intro"><div class="container"><h2>游戏介绍</h2><p>《恐怖医院》是一款独立制作的悬疑惊悚游戏。玩家将深入一座被废弃的诡异医院，寻找真相，面对内心的恐惧。剧情包含多结局分支，你的每一次选择都至关重要。</p></div></section>
 
@@ -162,64 +180,20 @@ footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
 
 <section class="section" id="download"><div class="container"><h2>下载游戏</h2>
 <div class="dl-box">
-<div class="mirror-state" id="mirrorState">当前：官方源下载</div>
-<a class="btn" id="dlApk">下载安卓版 APK</a>
-<a class="btn" id="dlPc">下载电脑版 Windows</a>
-<div class="mirror-tip" id="mirrorTip">备选镜像下载（点这里切换镜像源）</div>
-<div class="update-tip" id="updateTip"></div>
-<p class="dl-note">默认走 GitHub 官方源，点小字后走镜像加速</p>
+<a class="btn" id="dlApk">下载安卓版 APK（v1.0.6）</a>
+<a class="btn" id="dlPc">下载电脑版 Windows（v1.1.6）</a>
+<p class="dl-note">若下载中断，刷新页面后重试</p>
 </div></div></section>
 
 <footer><span class="bilibili">B站账号：奶油不吃糖果 个人版权，禁止抄袭、转载与二创</span><div>官方网页：kongbu-game.cc.cd</div></footer>
 
 <script>
-// 基础路径
+// 永久直链（Releases 附件，不带时效签名，不会过期）
 const RAW_APK="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk";
-const RAW_PC="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip";
-const MIRROR_POOL=[
-  "https://mirror.ghproxy.com/",
-  "https://ghfast.top/",
-  "https://gh.llkk.cc/"
-];
+const RAW_PC="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.1.6/kongbu-game.zip";
 
-// 镜像开关（本地记忆）
-let useMirror=false;
-try{useMirror=localStorage.getItem('kongbu_mirror')==='1';}catch(e){}
-const mirrorState=document.getElementById('mirrorState');
-const mirrorTip=document.getElementById('mirrorTip');
-
-function syncMirrorUI(){
-  mirrorState.innerText=useMirror?'当前：镜像加速下载':'当前：官方源下载';
-  mirrorTip.innerText=useMirror?'已切换镜像源（点这里切回官方源）':'备选镜像下载（点这里切换镜像源）';
-}
-syncMirrorUI();
-
-mirrorTip.addEventListener('click',()=>{
-  useMirror=!useMirror;
-  try{localStorage.setItem('kongbu_mirror',useMirror?'1':'0');}catch(e){}
-  syncMirrorUI();
-});
-
-function pickMirrorUrl(raw){
-  if(!useMirror)return raw;
-  // 默认优先第一个，挂了用户再点小字切回官方
-  return MIRROR_POOL[0]+raw;
-}
-
-document.getElementById('dlApk').addEventListener('click',()=>{
-  const a=document.createElement('a');
-  a.href=pickMirrorUrl(RAW_APK);
-  a.download='';
-  a.rel='noopener';
-  a.click();
-});
-document.getElementById('dlPc').addEventListener('click',()=>{
-  const a=document.createElement('a');
-  a.href=pickMirrorUrl(RAW_PC);
-  a.download='';
-  a.rel='noopener';
-  a.click();
-});
+document.getElementById('dlApk').addEventListener('click',()=>{window.open(RAW_APK,'_blank','noopener');});
+document.getElementById('dlPc').addEventListener('click',()=>{window.open(RAW_PC,'_blank','noopener');});
 
 // 人机验证
 const captchaOverlay=document.getElementById('captchaOverlay');
@@ -243,6 +217,87 @@ checkboxBox.addEventListener('click',()=>{
   spinner.style.animation='spin 1s linear infinite';
   setTimeout(()=>{captchaOverlay.style.display='none';},3000);
 });
+
+// 维修弹窗
+const TIPS=[
+  '病房尽头的灯，会在整点时自己熄灭。',
+  '听到推车声，请不要回头。',
+  '三楼的患者名单上，有你的名字。',
+  '值班记录最后一页，字迹不是人写的。',
+  '电梯按钮里，多了一个不存在的楼层。',
+  '如果想离开，别相信广播里的声音。',
+  '手术室的钟，永远停在三点零七分。',
+  '病历上的伤口位置，和你身上的一样。',
+  '走廊尽头的门，从里面锁着。',
+  '维修期间，请勿独自进入地下二层。'
+];
+const maintOverlay=document.getElementById('maintOverlay');
+const maintTip=document.getElementById('maintTip');
+const maintTipText=document.getElementById('maintTipText');
+const maintSub=document.getElementById('maintSub');
+let tipTimer=null,tipI=0;
+
+function rollTip(){
+  tipI=(tipI+1)%TIPS.length;
+  maintTipText.innerText=TIPS[tipI];
+}
+function runMaintenance(){
+  maintOverlay.classList.add('open');
+  maintTip.classList.add('open');
+  maintSub.innerText='正在重新连接服务器… 0 / 5 秒';
+  maintTipText.innerText=TIPS[Math.floor(Math.random()*TIPS.length)];
+  tipI=Math.floor(Math.random()*TIPS.length);
+  for(let s=1;s<=5;s++){
+    setTimeout(()=>{maintSub.innerText='正在重新连接服务器… '+s+' / 5 秒';},s*1000);
+  }
+  if(tipTimer)clearInterval(tipTimer);
+  tipTimer=setInterval(rollTip,1600);
+  setTimeout(()=>{
+    clearInterval(tipTimer);tipTimer=null;
+    maintOverlay.classList.remove('open');
+    maintTip.classList.remove('open');
+    window.scrollTo(0,0);
+  },5000);
+}
+function pad(n){return n<10?'0'+n:''+n;}
+function stamp(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());}
+
+let done=false;
+try{done=sessionStorage.getItem('kongbu_maint')==='1';}catch(e){}
+function fire(){
+  if(done)return;
+  done=true;
+  try{sessionStorage.setItem('kongbu_maint','1');}catch(e){}
+  runMaintenance();
+}
+
+// 触发时刻：每周六 12:01:00 + 周一至周五随机一天的一随机时刻
+const schedule=[];
+(function(){
+  const now=new Date();
+  const sat=new Date(now);
+  const gap=(6-now.getDay()+7)%7;
+  sat.setDate(now.getDate()+gap);
+  sat.setHours(12,1,0,0);
+  if(sat-now<0)sat.setDate(sat.getDate()+7);
+  schedule.push(stamp(sat));
+
+  const r=new Date(now);
+  const day=1+Math.floor(Math.random()*5); // 周一(1)~周五(5)
+  let diff=(day-now.getDay()+7)%7;
+  if(diff===0)diff=7;
+  r.setDate(now.getDate()+diff);
+  r.setHours(Math.floor(Math.random()*24),Math.floor(Math.random()*60),Math.floor(Math.random()*60),0);
+  schedule.push(stamp(r));
+})();
+
+(function tick(){
+  const now=stamp(new Date());
+  for(let i=0;i<schedule.length;i++){
+    if(schedule[i]===now){fire();return;}
+  }
+  setTimeout(tick,1000);
+})();
 
 // 登录
 const STORE_KEY='kongbu_user';
@@ -303,7 +358,10 @@ function toggleMenu(){menuPanel.classList.toggle('open');menuBtn.innerHTML=menuP
 menuBtn.addEventListener('click',toggleMenu);
 
 // 版本
-fetch('version.json').then(r=>r.json()).then(d=>{const t=document.getElementById('updateTip');t.style.display='block';t.innerText='当前最新版本：'+d.android_version+' | '+d.changelog}).catch(()=>{});
+fetch('version.json').then(r=>r.json()).then(d=>{
+  const t=document.getElementById('dlApk');
+  if(d&&d.android_version){t.innerText='下载安卓版 APK（'+d.android_version+'）';}
+}).catch(()=>{});
 
 // 滚动高亮
 const secs=document.querySelectorAll('.section,.hero'),items=document.querySelectorAll('.menu-item');
