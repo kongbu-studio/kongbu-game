@@ -2,76 +2,20 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>恐怖医院 - 官方网站</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恐怖医院 - 官方下载</title>
 <style>
-:root{--bg:#f2f2f2;--card:#fff;--border:#ccc;--text:#222;--sub:#777}
+:root{--bg:#eaeaea;--border:#bbb;--sub:#666;--main:#111}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding-top:60px;overflow-x:hidden}
-
-.nav{position:fixed;top:0;left:0;right:0;height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 15px;z-index:1000}
-.nav-left{display:flex;align-items:center}
-.logo-text{font-size:20px;font-weight:bold;letter-spacing:2px}
-.logo-mark{width:32px;height:32px;margin-left:8px;background:#333;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold}
-.trademark{width:22px;height:22px;margin-left:6px;position:relative;flex-shrink:0}
-.trademark::before{content:'';position:absolute;top:2px;left:0;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:16px solid #333}
-.trademark::after{content:'';position:absolute;bottom:1px;left:6px;width:10px;height:2px;background:#333;transform:rotate(-35deg);transform-origin:left center}
-.menu-btn{width:40px;height:40px;background:none;border:none;font-size:24px;cursor:pointer;color:#111}
-.menu-panel{position:fixed;top:60px;right:-200px;width:180px;background:#fff;border-left:1px solid var(--border);border-bottom:1px solid var(--border);transition:right .3s;z-index:999}
-.menu-panel.open{right:0}
-.menu-item{display:block;padding:15px 20px;color:var(--text);text-decoration:none;border-bottom:1px solid #eee;font-size:16px}
-.menu-item:active,.menu-item.active{background:#333;color:#fff}
-
-.captcha-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#f2f2f2;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.spinner{width:48px;height:48px;border:4px solid #ccc;border-top-color:#333;animation:spin 1s linear infinite;margin:0 auto 16px}
-.spinner.stopped{animation:none;border-color:#333}
-@keyframes spin{to{transform:rotate(360deg)}}
-.captcha-text{font-size:16px;color:#333;margin-bottom:20px;min-height:24px}
-.checkbox-row{display:none;align-items:center;justify-content:center;gap:12px;margin-top:16px}
-.checkbox-box{width:28px;height:28px;border:2px solid #333;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:#333}
-.checkbox-box.checked{background:#333;color:#fff}
-
-.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1500;display:none;align-items:center;justify-content:center}
-.login-overlay.open{display:flex}
-.login-modal{background:#fff;border:1px solid var(--border);width:90%;max-width:380px;padding:0}
-.login-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
-.login-header h3{font-size:18px;font-weight:bold}
-.login-close{width:32px;height:32px;background:none;border:1px solid #333;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.login-body{padding:20px}
-.login-body label{display:block;font-size:14px;color:#555;margin-bottom:6px;margin-top:14px}
-.login-body input{width:100%;padding:12px;border:1px solid #333;background:#fff;font-size:16px;outline:none}
-.login-body input:focus{border-color:#111;background:#fafafa}
-.login-submit{display:block;width:100%;padding:14px;margin-top:24px;background:#333;color:#fff;font-size:16px;font-weight:bold;border:none;cursor:pointer}
-.login-submit:active{background:#111}
-
-.profile-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#f2f2f2;z-index:1400;display:none;flex-direction:column}
-.profile-overlay.open{display:flex}
-.profile-header{height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 15px}
-.profile-back{width:40px;height:40px;background:none;border:1px solid #333;font-size:16px;cursor:pointer;margin-right:12px}
-.profile-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
-.avatar{width:80px;height:80px;background:#333;color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold;margin-bottom:20px}
-.profile-name{font-size:20px;font-weight:bold;margin-bottom:6px}
-.profile-email{font-size:14px;color:var(--sub);margin-bottom:40px}
-.profile-btn{display:block;width:200px;padding:14px;background:#fff;color:#111;font-size:16px;font-weight:bold;border:2px solid #333;cursor:pointer;text-align:center}
-.profile-btn:active{background:#333;color:#fff}
-
-.maint-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#f2f2f2;z-index:1800;display:none;align-items:center;justify-content:center}
-.maint-overlay.open{display:flex}
-.maint-box{background:#fff;border:1px solid #333;width:88%;max-width:360px;padding:34px 20px;text-align:center}
-.maint-title{font-size:18px;font-weight:bold;margin-bottom:22px;letter-spacing:1px}
-.maint-spin{width:46px;height:46px;border:4px solid #ccc;border-top-color:#333;animation:spin 1s linear infinite;margin:0 auto 18px}
-.maint-sub{font-size:14px;color:#333;min-height:22px}
-.maint-tip{position:fixed;left:0;bottom:0;padding:10px 14px;font-size:13px;color:#333;background:#fff;border-top:1px solid var(--border);border-right:1px solid var(--border);max-width:100%;z-index:1801;display:none}
-.maint-tip.open{display:block}
-.maint-tip b{font-weight:bold}
-.maint-tip span{color:#555}
-
-.section{padding:50px 20px;border-bottom:1px solid #ddd}
-h2{color:#111;font-size:22px;margin-bottom:20px;border-left:4px solid #333;padding-left:10px}
-.container{max-width:800px;margin:0 auto}
-.hero{text-align:center;padding:80px 20px;background:#eaeaea}
-.hero h1{font-size:36px;letter-spacing:4px}.hero p{color:var(--sub)}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:15px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--main);line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:0 20px}
+.section{padding:60px 0;text-align:center}
+.hero{padding:120px 20px;background:#fff;border-bottom:1px solid var(--border)}
+.hero h1{font-size:42px;font-weight:bold;margin-bottom:10px;letter-spacing:2px}
+.hero p{color:var(--sub);font-size:16px}
+h2{font-size:24px;margin-bottom:20px;border-bottom:2px solid #333;display:inline-block;padding-bottom:5px}
+p{color:var(--sub);margin-bottom:15px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:15px}
 .card{background:#fff;border:1px solid var(--border);padding:20px;text-align:center}
 .card span{font-size:28px;display:block;margin-bottom:10px}
 .shots{display:grid;grid-template-columns:1fr;gap:20px}
@@ -81,7 +25,53 @@ h2{color:#111;font-size:22px;margin-bottom:20px;border-left:4px solid #333;paddi
 .dl-box{background:#fff;padding:30px;border:1px solid var(--border);text-align:center}
 .btn{display:block;width:100%;padding:15px;margin:10px 0;background:#fff;color:#111;font-size:17px;font-weight:bold;border:2px solid #333;text-decoration:none;cursor:pointer}
 .btn:active{background:#333;color:#fff}
+.update-tip{margin-top:15px;font-size:14px;color:#333;display:none}
 .dl-note{color:var(--sub);font-size:12px;margin-top:8px}
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.nav-left{display:flex;align-items:center;gap:10px}
+.logo-text{font-weight:bold;font-size:18px;letter-spacing:1px}
+.logo-mark{width:28px;height:28px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;border-radius:2px}
+.trademark{font-size:10px;color:#999}
+.menu-btn{background:none;border:none;font-size:24px;cursor:pointer;line-height:1}
+.menu-panel{position:fixed;top:56px;right:0;width:200px;background:#fff;border-left:1px solid var(--border);border-bottom:1px solid var(--border);transform:translateX(100%);transition:.3s;z-index:99}
+.menu-panel.open{transform:translateX(0)}
+.menu-item{display:block;padding:15px 20px;border-bottom:1px solid #eee;color:#111;text-decoration:none;font-weight:bold}
+.menu-item.active{background:#f0f0f0}
+.captcha-overlay{position:fixed;inset:0;background:#fff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.spinner{width:40px;height:40px;border:4px solid #111;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:15px}
+.spinner.stopped{animation:none;border-color:#ccc;border-top-color:transparent}
+@keyframes spin{to{transform:rotate(360deg)}}
+.captcha-text{font-size:14px;color:#333;margin-bottom:20px}
+.checkbox-row{display:none;align-items:center;gap:10px}
+.checkbox-box{width:28px;height:28px;border:2px solid #333;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:#111}
+.checkbox-box.checked{background:#333;color:#fff}
+.login-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;display:none;align-items:center;justify-content:center}
+.login-overlay.open{display:flex}
+.login-modal{background:#fff;width:90%;max-width:360px;border:1px solid var(--border)}
+.login-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid var(--border)}
+.login-header h3{font-size:18px}
+.login-close{background:none;border:none;font-size:18px;cursor:pointer}
+.login-body{padding:20px}
+.login-body label{display:block;margin-top:10px;font-size:14px;font-weight:bold}
+.login-body input{width:100%;padding:10px;margin-top:5px;border:1px solid var(--border);font-size:14px}
+.login-submit{width:100%;padding:12px;margin-top:15px;background:#111;color:#fff;border:none;font-size:16px;cursor:pointer}
+.profile-overlay{position:fixed;inset:0;background:#fff;z-index:8000;transform:translateX(100%);transition:.3s}
+.profile-overlay.open{transform:translateX(0)}
+.profile-header{height:56px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--border)}
+.profile-back{background:none;border:none;font-size:24px;cursor:pointer;margin-right:15px}
+.profile-content{text-align:center;padding:50px 20px}
+.avatar{width:80px;height:80px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 15px}
+.profile-name{font-size:20px;font-weight:bold}
+.profile-email{color:var(--sub);margin-bottom:20px}
+.profile-btn{padding:12px 30px;background:#fff;border:2px solid #333;font-weight:bold;cursor:pointer}
+.repair-overlay{position:fixed;inset:0;background:#fff;z-index:9500;display:none;align-items:center;justify-content:center;flex-direction:column}
+.repair-overlay.show{display:flex}
+.repair-box{border:2px solid #333;padding:40px 60px;text-align:center;background:#fff}
+.repair-title{font-size:18px;font-weight:bold;margin-bottom:20px}
+.repair-spinner{width:40px;height:40px;border:4px solid #111;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto}
+.repair-text{margin-top:15px;font-size:14px}
+.repair-tip{position:absolute;bottom:40px;left:40px;font-size:13px;color:#333}
+.repair-tip b{font-weight:bold}
 footer{padding:40px 20px;text-align:center;color:var(--sub);font-size:14px;background:#eaeaea;border-top:1px solid #ddd}
 footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
 </style>
@@ -97,16 +87,6 @@ footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
     <span>请点击方框以验证</span>
   </div>
 </div>
-
-<!-- 维修中弹窗 -->
-<div class="maint-overlay" id="maintOverlay">
-  <div class="maint-box">
-    <div class="maint-title">加载中</div>
-    <div class="maint-spin"></div>
-    <div class="maint-sub" id="maintSub">正在重新连接服务器… 0 / 5 秒</div>
-  </div>
-</div>
-<div class="maint-tip" id="maintTip"><b>小贴士：</b><span id="maintTipText"></span></div>
 
 <!-- 登录弹窗 -->
 <div class="login-overlay" id="loginOverlay">
@@ -141,6 +121,16 @@ footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
   </div>
 </div>
 
+<!-- 维修遮罩 -->
+<div class="repair-overlay" id="repairOverlay">
+  <div class="repair-box">
+    <div class="repair-title">服务器维修中</div>
+    <div class="repair-spinner" id="repairSpinner"></div>
+    <div class="repair-text" id="repairText">正在重新连接服务器… 1 / 5 秒</div>
+  </div>
+  <div class="repair-tip"><b>小贴士：</b><span id="repairTip">深夜的医院走廊总是格外安静。</span></div>
+</div>
+
 <!-- 导航 -->
 <nav class="nav">
   <div class="nav-left">
@@ -159,7 +149,7 @@ footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
 </div>
 
 <!-- 主页 -->
-<section class="section hero" id="home"><div class="container"><h1>恐怖医院</h1><p>v1.1.6 · 探索未知的深夜病房</p></div></section>
+<section class="section hero" id="home"><div class="container"><h1>恐怖医院</h1><p>v1.0.6 · 探索未知的深夜病房</p></div></section>
 
 <section class="section" id="intro"><div class="container"><h2>游戏介绍</h2><p>《恐怖医院》是一款独立制作的悬疑惊悚游戏。玩家将深入一座被废弃的诡异医院，寻找真相，面对内心的恐惧。剧情包含多结局分支，你的每一次选择都至关重要。</p></div></section>
 
@@ -182,18 +172,23 @@ footer .bilibili{color:#333;font-weight:bold;margin-bottom:10px;display:block}
 <div class="dl-box">
 <a class="btn" id="dlApk">下载安卓版 APK（v1.0.6）</a>
 <a class="btn" id="dlPc">下载电脑版 Windows（v1.1.6）</a>
+<div class="update-tip" id="updateTip"></div>
 <p class="dl-note">若下载中断，刷新页面后重试</p>
 </div></div></section>
 
 <footer><span class="bilibili">B站账号：奶油不吃糖果 个人版权，禁止抄袭、转载与二创</span><div>官方网页：kongbu-game.cc.cd</div></footer>
 
 <script>
-// 永久直链（Releases 附件，不带时效签名，不会过期）
+// 基础路径
 const RAW_APK="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu_hospital_1.0.6.apk";
-const RAW_PC="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.1.6/kongbu-game.zip";
+const RAW_PC="https://github.com/kongbu-studio/kongbu-game/releases/download/v1.0.6/kongbu-game.zip";
 
-document.getElementById('dlApk').addEventListener('click',()=>{window.open(RAW_APK,'_blank','noopener');});
-document.getElementById('dlPc').addEventListener('click',()=>{window.open(RAW_PC,'_blank','noopener');});
+document.getElementById('dlApk').addEventListener('click',()=>{
+  window.open(RAW_APK,'_blank');
+});
+document.getElementById('dlPc').addEventListener('click',()=>{
+  window.open(RAW_PC,'_blank');
+});
 
 // 人机验证
 const captchaOverlay=document.getElementById('captchaOverlay');
@@ -217,87 +212,6 @@ checkboxBox.addEventListener('click',()=>{
   spinner.style.animation='spin 1s linear infinite';
   setTimeout(()=>{captchaOverlay.style.display='none';},3000);
 });
-
-// 维修弹窗
-const TIPS=[
-  '病房尽头的灯，会在整点时自己熄灭。',
-  '听到推车声，请不要回头。',
-  '三楼的患者名单上，有你的名字。',
-  '值班记录最后一页，字迹不是人写的。',
-  '电梯按钮里，多了一个不存在的楼层。',
-  '如果想离开，别相信广播里的声音。',
-  '手术室的钟，永远停在三点零七分。',
-  '病历上的伤口位置，和你身上的一样。',
-  '走廊尽头的门，从里面锁着。',
-  '维修期间，请勿独自进入地下二层。'
-];
-const maintOverlay=document.getElementById('maintOverlay');
-const maintTip=document.getElementById('maintTip');
-const maintTipText=document.getElementById('maintTipText');
-const maintSub=document.getElementById('maintSub');
-let tipTimer=null,tipI=0;
-
-function rollTip(){
-  tipI=(tipI+1)%TIPS.length;
-  maintTipText.innerText=TIPS[tipI];
-}
-function runMaintenance(){
-  maintOverlay.classList.add('open');
-  maintTip.classList.add('open');
-  maintSub.innerText='正在重新连接服务器… 0 / 5 秒';
-  maintTipText.innerText=TIPS[Math.floor(Math.random()*TIPS.length)];
-  tipI=Math.floor(Math.random()*TIPS.length);
-  for(let s=1;s<=5;s++){
-    setTimeout(()=>{maintSub.innerText='正在重新连接服务器… '+s+' / 5 秒';},s*1000);
-  }
-  if(tipTimer)clearInterval(tipTimer);
-  tipTimer=setInterval(rollTip,1600);
-  setTimeout(()=>{
-    clearInterval(tipTimer);tipTimer=null;
-    maintOverlay.classList.remove('open');
-    maintTip.classList.remove('open');
-    window.scrollTo(0,0);
-  },5000);
-}
-function pad(n){return n<10?'0'+n:''+n;}
-function stamp(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());}
-
-let done=false;
-try{done=sessionStorage.getItem('kongbu_maint')==='1';}catch(e){}
-function fire(){
-  if(done)return;
-  done=true;
-  try{sessionStorage.setItem('kongbu_maint','1');}catch(e){}
-  runMaintenance();
-}
-
-// 触发时刻：每周六 12:01:00 + 周一至周五随机一天的一随机时刻
-const schedule=[];
-(function(){
-  const now=new Date();
-  const sat=new Date(now);
-  const gap=(6-now.getDay()+7)%7;
-  sat.setDate(now.getDate()+gap);
-  sat.setHours(12,1,0,0);
-  if(sat-now<0)sat.setDate(sat.getDate()+7);
-  schedule.push(stamp(sat));
-
-  const r=new Date(now);
-  const day=1+Math.floor(Math.random()*5); // 周一(1)~周五(5)
-  let diff=(day-now.getDay()+7)%7;
-  if(diff===0)diff=7;
-  r.setDate(now.getDate()+diff);
-  r.setHours(Math.floor(Math.random()*24),Math.floor(Math.random()*60),Math.floor(Math.random()*60),0);
-  schedule.push(stamp(r));
-})();
-
-(function tick(){
-  const now=stamp(new Date());
-  for(let i=0;i<schedule.length;i++){
-    if(schedule[i]===now){fire();return;}
-  }
-  setTimeout(tick,1000);
-})();
 
 // 登录
 const STORE_KEY='kongbu_user';
@@ -358,14 +272,81 @@ function toggleMenu(){menuPanel.classList.toggle('open');menuBtn.innerHTML=menuP
 menuBtn.addEventListener('click',toggleMenu);
 
 // 版本
-fetch('version.json').then(r=>r.json()).then(d=>{
-  const t=document.getElementById('dlApk');
-  if(d&&d.android_version){t.innerText='下载安卓版 APK（'+d.android_version+'）';}
-}).catch(()=>{});
+fetch('version.json').then(r=>r.json()).then(d=>{const t=document.getElementById('updateTip');t.style.display='block';t.innerText='当前最新版本：'+d.android_version+' | '+d.changelog}).catch(()=>{});
 
 // 滚动高亮
 const secs=document.querySelectorAll('.section,.hero'),items=document.querySelectorAll('.menu-item');
 window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-70)c=s.id});items.forEach(i=>{i.classList.remove('active');if(i.getAttribute('href')==='#'+c)i.classList.add('active')})});
+
+// 维修弹窗逻辑
+const repairOverlay=document.getElementById('repairOverlay');
+const repairSpinner=document.getElementById('repairSpinner');
+const repairText=document.getElementById('repairText');
+const repairTip=document.getElementById('repairTip');
+const repairTips=[
+  "深夜的医院走廊总是格外安静。",
+  "别回头，身后空无一人。",
+  "手术室的灯，真的灭了吗？",
+  "病历本上，没有你的名字。",
+  "电梯停在负一层，那里没有楼层。",
+  "护士站的钟表，永远指向凌晨三点。",
+  "别接那通电话，来电显示是自己。",
+  "墙皮剥落处，露出一张脸。",
+  "你确定，自己还没出院吗？",
+  "真相，比鬼更可怕。"
+];
+let tipIdx=0;
+let repairTimer=null,tipTimer=null;
+function pickRepairTime(){
+  const now=new Date();
+  const sat=new Date(now);
+  const day=sat.getDay();
+  let diff=(6-day+7)%7;
+  sat.setDate(sat.getDate()+diff);
+  sat.setHours(12,1,0,0);
+  if(sat<=now)sat.setDate(sat.getDate()+7);
+  const rand=new Date(now);
+  const rDay=Math.floor(Math.random()*5)+1;
+  rand.setDate(rand.getDate()+rDay);
+  rand.setHours(Math.floor(Math.random()*24),Math.floor(Math.random()*60),Math.floor(Math.random()*60),0);
+  if(rand<=now)rand.setDate(rand.getDate()+1);
+  return [sat,rand].sort((a,b)=>a-b);
+}
+const [satTime,randTime]=pickRepairTime();
+let nextCheck=Math.min(satTime,randTime);
+function checkRepair(){
+  const now=new Date();
+  if(now>=nextCheck && now-nextCheck<12*3600*1000){
+    if(sessionStorage.getItem('kongbu_repaired'))return;
+    sessionStorage.setItem('kongbu_repaired','1');
+    alert('服务器维修中，请等待');
+    repairOverlay.classList.add('show');
+    repairSpinner.style.animation='spin 1s linear infinite';
+    let sec=1;
+    repairText.innerText=`正在重新连接服务器… ${sec} / 5 秒`;
+    repairTip.innerText=repairTips[0];
+    tipIdx=0;
+    clearInterval(tipTimer);
+    tipTimer=setInterval(()=>{
+      tipIdx=(tipIdx+1)%repairTips.length;
+      repairTip.innerText=repairTips[tipIdx];
+    },1600);
+    clearInterval(repairTimer);
+    repairTimer=setInterval(()=>{
+      sec++;
+      repairText.innerText=`正在重新连接服务器… ${sec} / 5 秒`;
+      if(sec>=5){
+        clearInterval(repairTimer);
+        clearInterval(tipTimer);
+        repairSpinner.style.animation='none';
+        repairOverlay.classList.remove('show');
+        window.scrollTo(0,0);
+      }
+    },1000);
+  }
+}
+setInterval(checkRepair,60000);
+checkRepair();
 </script>
 </body>
 </html>
